@@ -5,11 +5,6 @@ namespace Podemski.Musicorum.Application.ViewModels
 {
     public sealed class AlbumViewModel
     {
-        internal AlbumViewModel(int id)
-        {
-            Id = id;
-        }
-
         internal int Id { get; }
 
         public int ArtistId { get; set; }
@@ -19,6 +14,10 @@ namespace Podemski.Musicorum.Application.ViewModels
         public string Title { get; set; }
 
         public Genre Genre { get; set; }
+
+        public bool IsDigital { get; set; }
+
+        public bool IsForeign { get; set; }
 
         public string Description { get; set; }
 

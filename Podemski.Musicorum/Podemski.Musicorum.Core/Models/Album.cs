@@ -13,6 +13,10 @@ namespace Podemski.Musicorum.Core.Models
 
         public Genre Genre { get; }
 
+        public bool IsDigital { get; }
+
+        public bool IsForeign { get; }
+
         public string Description { get; }
 
         public IList<Track> TrackList { get; }

@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Podemski.Musicorum.Application.Attributes;
+using Podemski.Musicorum.Application.SearchCriterias;
 using Podemski.Musicorum.Application.ViewModels;
 using Podemski.Musicorum.Common.Mapping;
 using Podemski.Musicorum.Core.Contracts.Repositories;
@@ -18,7 +19,7 @@ namespace Podemski.Musicorum.Application.Services
 
         void Delete(ArtistViewModel artist);
 
-        IEnumerable<ArtistViewModel> FindByName(string name);
+        IEnumerable<ArtistViewModel> Find(SearchCriteria searchCriteria);
     }
 
     internal sealed class ArtistService : IArtistService
@@ -60,9 +61,18 @@ namespace Podemski.Musicorum.Application.Services
             _artistRepository.Save(_mapper.Map<ArtistViewModel, Artist>(artist));
         }
 
-        public IEnumerable<ArtistViewModel> FindByName(string name)
+        public IEnumerable<ArtistViewModel> Find(SearchCriteria searchCriteria)
         {
-            return _artistRepository.Find(x => x.Name.Contains(name)).Select(_mapper.Map<Artist, ArtistViewModel>);
+            return _artistRepository.Find(IsMatch).Select(_mapper.Map<Artist, ArtistViewModel>);
+
+            bool IsMatch(Artist artist)
+            {
+                return artist.Name.Contains(searchCriteria.Name)
+                    // TODO: Validation for Rap & Pop
+                    && artist.Albums.Any(a => a.Genre.HasFlag(searchCriteria.Genre))
+                    && (searchCriteria.IsDigital == null || artist.Albums.Any(a => a.IsDigital == searchCriteria.IsDigital))
+                    && (searchCriteria.IsForeign == null || artist.Albums.Any(a => a.IsForeign == searchCriteria.IsForeign));
+            }
         }
     }
 }

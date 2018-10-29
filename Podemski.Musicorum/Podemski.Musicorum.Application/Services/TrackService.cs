@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
+using Podemski.Musicorum.Application.SearchCriterias;
 using Podemski.Musicorum.Application.ViewModels;
 
 using Podemski.Musicorum.Common.Mapping;
@@ -7,7 +9,6 @@ using Podemski.Musicorum.Core.Attributes;
 using Podemski.Musicorum.Core.Contracts.Repositories;
 using Podemski.Musicorum.Core.Exceptions;
 using Podemski.Musicorum.Core.Models;
-using Podemski.Musicorum.Core.Services;
 
 namespace Podemski.Musicorum.Application.Services
 {
@@ -19,25 +20,17 @@ namespace Podemski.Musicorum.Application.Services
 
         void Delete(TrackViewModel track);
 
-        IEnumerable<TrackShortInfo> FindByName(string name);
-
-        void Play(TrackViewModel track);
-
-        void Pause();
-
-        void Resume();
+        IEnumerable<TrackShortInfo> Find(SearchCriteria searchCriteria);
     }
 
     internal sealed class TrackService : ITrackService
     {
         private readonly IMapper _mapper;
-        private readonly IPlayer _player;
         private readonly ITrackRepository _trackRepository;
 
-        internal TrackService(ITrackRepository trackRepository, IPlayer player, IMapper mapper)
+        internal TrackService(ITrackRepository trackRepository, IMapper mapper)
         {
             _trackRepository = trackRepository;
-            _player = player;
             _mapper = mapper;
         }
 
@@ -69,18 +62,18 @@ namespace Podemski.Musicorum.Application.Services
             _trackRepository.Save(_mapper.Map<TrackViewModel, Track>(track));
         }
 
-        public IEnumerable<TrackShortInfo> FindByName(string name)
+        public IEnumerable<TrackShortInfo> Find(SearchCriteria searchCriteria)
         {
-            return _trackRepository.Find(x => x.Title.Contains(name)).Select(_mapper.Map<Track, TrackShortInfo>);
+            return _trackRepository.Find(IsMatch).Select(_mapper.Map<Track, TrackShortInfo>);
+
+            bool IsMatch(Track track)
+            {
+                return track.Title.Contains(searchCriteria.Name)
+                    // TODO: Validation for Rap & Pop
+                    && searchCriteria.Genre.HasFlag(track.Album.Genre)
+                    && (searchCriteria.IsDigital == null || track.Album.IsDigital == searchCriteria.IsDigital)
+                    && (searchCriteria.IsForeign == null || track.Album.IsForeign == searchCriteria.IsForeign);
+            }
         }
-
-        public void Play(TrackViewModel track)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Pause() => _player.Pause();
-
-        public void Resume() => _player.Resume();
     }
 }
