@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Podemski.Musicorum.Core")]
+[assembly: AssemblyTitle("Podemski.Musicorum.Interfaces")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Podemski.Musicorum.Core")]
+[assembly: AssemblyProduct("Podemski.Musicorum.Interfaces")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("32d296c3-4164-4718-aa7b-45abed9ea8b5")]
+[assembly: Guid("5903a513-571a-4754-a003-a4f972d6c398")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{32D296C3-4164-4718-AA7B-45ABED9EA8B5}</ProjectGuid>
+    <ProjectGuid>{2569BBF3-A76F-430E-807B-BA470CFD5E29}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Podemski.Musicorum.Core</RootNamespace>
-    <AssemblyName>Podemski.Musicorum.Core</AssemblyName>
+    <RootNamespace>Podemski.Musicorum.Dao</RootNamespace>
+    <AssemblyName>Podemski.Musicorum.Dao</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,8 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\Genre.cs" />
+    <Compile Include="Entities\Album.cs" />
+    <Compile Include="Entities\Artist.cs" />
+    <Compile Include="Entities\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AlbumRepository.cs" />
+    <Compile Include="Repositories\ArtistRepository.cs" />
+    <Compile Include="Repositories\TrackRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Podemski.Musicorum.Core\Podemski.Musicorum.Core.csproj">
+      <Project>{32D296C3-4164-4718-AA7B-45ABED9EA8B5}</Project>
+      <Name>Podemski.Musicorum.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Podemski.Musicorum.Interfaces\Podemski.Musicorum.Interfaces.csproj">
+      <Project>{5903A513-571A-4754-A003-A4F972D6C398}</Project>
+      <Name>Podemski.Musicorum.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
