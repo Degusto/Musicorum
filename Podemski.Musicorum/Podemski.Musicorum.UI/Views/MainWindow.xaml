@@ -3,6 +3,8 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:enums="clr-namespace:Podemski.Musicorum.Core.Enums;assembly=Podemski.Musicorum.Core"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
@@ -21,12 +23,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Grid.Column="0" Margin="3"/>
-
+        <TextBox Grid.Row="0" Grid.Column="0" Margin="6"/>
 
         <WrapPanel Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="3">
             <Button Content="Szukaj" Grid.Row="0" Grid.Column="1" Margin="3"/>
-            
+
             <TextBlock Text="Rodzaj wyników" HorizontalAlignment="Center"/>
             <ComboBox SelectedIndex="0">
                 <ComboBoxItem Content="Wszystkie"/>
@@ -47,7 +48,7 @@
                 <ComboBoxItem Content="Cyfrowa"/>
                 <ComboBoxItem Content="Fizyczna"/>
             </ComboBox>
-            
+
             <TextBlock Text="Pochodzenie" HorizontalAlignment="Center"/>
             <ComboBox SelectedIndex="0">
                 <ComboBoxItem Content="--"/>
@@ -55,30 +56,37 @@
                 <ComboBoxItem Content="Zagraniczny"/>
             </ComboBox>
         </WrapPanel>
-        <Grid Grid.Row="1" Grid.Column="0">
+
+        <Grid Grid.Row="1" Grid.Column="0" Margin="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox Grid.Column="0">
-                <ListBoxItem Content="ASD1"/>
-                <ListBoxItem Content="ASD2"/>
-                <ListBoxItem Content="ASD3"/>
-            </ListBox>
+            <GroupBox Header="Albumy" Grid.Column="0" Margin="3">
+                <ListBox>
+                    <ListBoxItem Content="ASD1"/>
+                    <ListBoxItem Content="ASD2"/>
+                    <ListBoxItem Content="ASD3"/>
+                </ListBox>
+            </GroupBox>
 
-            <ListBox Grid.Column="1">
-                <ListBoxItem Content="ASD1"/>
-                <ListBoxItem Content="ASD2"/>
-                <ListBoxItem Content="ASD3"/>
-            </ListBox>
+            <GroupBox Header="Artyści" Grid.Column="1" Margin="3">
+                <ListBox>
+                    <ListBoxItem Content="ASD1"/>
+                    <ListBoxItem Content="ASD2"/>
+                    <ListBoxItem Content="ASD3"/>
+                </ListBox>
+            </GroupBox>
 
-            <ListBox Grid.Column="2">
-                <ListBoxItem Content="ASD1"/>
-                <ListBoxItem Content="ASD2"/>
-                <ListBoxItem Content="ASD3"/>
-            </ListBox>
+            <GroupBox Header="Utwory" Grid.Column="2" Margin="3">
+                <ListBox>
+                    <ListBoxItem Content="ASD1"/>
+                    <ListBoxItem Content="ASD2"/>
+                    <ListBoxItem Content="ASD3"/>
+                </ListBox>
+            </GroupBox>
         </Grid>
     </Grid>
 </controls:MetroWindow>

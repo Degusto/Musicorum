@@ -22,7 +22,13 @@ namespace Podemski.Musicorum.UI.ViewModels
             _kernel = new StandardKernel(settings, modules);
         }
 
-        public MainViewModel Main => _kernel.Get<MainViewModel>();
+        public MainViewModel MainViewModel => _kernel.Get<MainViewModel>();
+
+        public ArtistViewModel ArtistViewModel => _kernel.Get<ArtistViewModel>();
+
+        public AlbumViewModel AlbumViewModel => _kernel.Get<AlbumViewModel>();
+
+        public TrackViewModel TrackViewModel => _kernel.Get<TrackViewModel>();
 
         private static INinjectModule[] GetModules()
         {
