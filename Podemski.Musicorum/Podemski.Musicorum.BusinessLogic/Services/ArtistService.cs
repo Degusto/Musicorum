@@ -50,8 +50,7 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             bool IsMatch(IArtist artist)
             {
                 return artist.Name.Contains(searchCriteria.Name)
-                    // TODO: Validation for Rap & Pop
-                    && artist.Albums.Any(a => a.Genre.HasFlag(searchCriteria.Genre))
+                    && artist.Albums.Any(a => a.Genre == searchCriteria.Genre || searchCriteria.Genre == Core.Enums.Genre.All)
                     && (searchCriteria.IsDigital == null || artist.Albums.Any(a => a.IsDigital == searchCriteria.IsDigital))
                     && (searchCriteria.IsForeign == null || artist.Albums.Any(a => a.IsForeign == searchCriteria.IsForeign));
             }

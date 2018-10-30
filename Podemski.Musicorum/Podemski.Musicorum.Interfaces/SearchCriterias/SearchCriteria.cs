@@ -19,8 +19,8 @@ namespace Podemski.Musicorum.Interfaces.SearchCriterias
             set => _genre = value;
         }
 
-        public bool? IsDigital { get; }
+        public bool? IsDigital { get; set; }
 
-        public bool? IsForeign { get; }
+        public bool? IsForeign { get; set; }
     }
 }

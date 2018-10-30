@@ -1,4 +1,4 @@
-﻿namespace Podemski.Musicorum.UI
+namespace Podemski.Musicorum.UI.Views
 {
     public partial class MainWindow
     {

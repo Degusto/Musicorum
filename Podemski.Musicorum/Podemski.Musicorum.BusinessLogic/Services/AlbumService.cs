@@ -49,8 +49,7 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             bool IsMatch(IAlbum album)
             {
                 return album.Title.Contains(searchCriteria.Name)
-                    // TODO: Validation for Rap & Pop
-                    && album.Genre.HasFlag(searchCriteria.Genre)
+                    && (album.Genre == searchCriteria.Genre || searchCriteria.Genre == Core.Enums.Genre.All)
                     && (searchCriteria.IsDigital == null || album.IsDigital == searchCriteria.IsDigital)
                     && (searchCriteria.IsForeign == null || album.IsForeign == searchCriteria.IsForeign);
             }

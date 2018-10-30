@@ -1,0 +1,84 @@
+﻿<controls:MetroWindow x:Class="Podemski.Musicorum.UI.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0" Grid.Column="0" Margin="3"/>
+
+
+        <WrapPanel Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="3">
+            <Button Content="Szukaj" Grid.Row="0" Grid.Column="1" Margin="3"/>
+            
+            <TextBlock Text="Rodzaj wyników" HorizontalAlignment="Center"/>
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem Content="Wszystkie"/>
+                <ComboBoxItem Content="Artyści"/>
+                <ComboBoxItem Content="Albumy"/>
+                <ComboBoxItem Content="Utwory"/>
+            </ComboBox>
+
+            <TextBlock Text="Rodzaj muzyki" HorizontalAlignment="Center"/>
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem Content="123"/>
+                <ComboBoxItem Content="123"/>
+            </ComboBox>
+
+            <TextBlock Text="Wersja" HorizontalAlignment="Center"/>
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem Content="---"/>
+                <ComboBoxItem Content="Cyfrowa"/>
+                <ComboBoxItem Content="Fizyczna"/>
+            </ComboBox>
+            
+            <TextBlock Text="Pochodzenie" HorizontalAlignment="Center"/>
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem Content="--"/>
+                <ComboBoxItem Content="Polski"/>
+                <ComboBoxItem Content="Zagraniczny"/>
+            </ComboBox>
+        </WrapPanel>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox Grid.Column="0">
+                <ListBoxItem Content="ASD1"/>
+                <ListBoxItem Content="ASD2"/>
+                <ListBoxItem Content="ASD3"/>
+            </ListBox>
+
+            <ListBox Grid.Column="1">
+                <ListBoxItem Content="ASD1"/>
+                <ListBoxItem Content="ASD2"/>
+                <ListBoxItem Content="ASD3"/>
+            </ListBox>
+
+            <ListBox Grid.Column="2">
+                <ListBoxItem Content="ASD1"/>
+                <ListBoxItem Content="ASD2"/>
+                <ListBoxItem Content="ASD3"/>
+            </ListBox>
+        </Grid>
+    </Grid>
+</controls:MetroWindow>
