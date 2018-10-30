@@ -1,43 +1,17 @@
-using System;
-using System.Linq;
-
 using Ninject;
-using Ninject.Modules;
+
+using Podemski.Musicorum.UI.Bootstrap;
 
 namespace Podemski.Musicorum.UI.ViewModels
 {
     public sealed class ViewModelLocator
     {
-        private readonly IKernel _kernel;
+        public MainViewModel MainViewModel => Kernel.Instance.Get<MainViewModel>();
 
-        public ViewModelLocator()
-        {
-            var settings = new NinjectSettings
-            {
-                InjectNonPublic = true
-            };
+        public ArtistViewModel ArtistViewModel => Kernel.Instance.Get<ArtistViewModel>();
 
-            var modules = GetModules();
+        public AlbumViewModel AlbumViewModel => Kernel.Instance.Get<AlbumViewModel>();
 
-            _kernel = new StandardKernel(settings, modules);
-        }
-
-        public MainViewModel MainViewModel => _kernel.Get<MainViewModel>();
-
-        public ArtistViewModel ArtistViewModel => _kernel.Get<ArtistViewModel>();
-
-        public AlbumViewModel AlbumViewModel => _kernel.Get<AlbumViewModel>();
-
-        public TrackViewModel TrackViewModel => _kernel.Get<TrackViewModel>();
-
-        private static INinjectModule[] GetModules()
-        {
-            return AppDomain
-                .CurrentDomain
-                .GetAssemblies()
-                .SelectMany(a => a.GetTypes())
-                .Where(t => t.BaseType == typeof(NinjectModule) && t.IsSealed)
-                .Select(m => (INinjectModule)Activator.CreateInstance(m)).ToArray();
-        }
+        public TrackViewModel TrackViewModel => Kernel.Instance.Get<TrackViewModel>();
     }
 }

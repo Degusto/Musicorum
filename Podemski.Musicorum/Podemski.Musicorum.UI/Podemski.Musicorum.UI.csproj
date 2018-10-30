@@ -82,6 +82,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Bootstrap\Kernel.cs" />
+    <Compile Include="Services\ViewService.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -157,6 +159,10 @@
     <ProjectReference Include="..\Podemski.Musicorum.Core\Podemski.Musicorum.Core.csproj">
       <Project>{32d296c3-4164-4718-aa7b-45abed9ea8b5}</Project>
       <Name>Podemski.Musicorum.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Podemski.Musicorum.Interfaces\Podemski.Musicorum.Interfaces.csproj">
+      <Project>{5903A513-571A-4754-A003-A4F972D6C398}</Project>
+      <Name>Podemski.Musicorum.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

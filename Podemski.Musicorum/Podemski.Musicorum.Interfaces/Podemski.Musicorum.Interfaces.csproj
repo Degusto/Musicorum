@@ -50,6 +50,7 @@
     <Compile Include="Services\IAlbumService.cs" />
     <Compile Include="Services\IArtistService.cs" />
     <Compile Include="Services\ITrackService.cs" />
+    <Compile Include="Services\IViewService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Podemski.Musicorum.Core\Podemski.Musicorum.Core.csproj">
