@@ -9,8 +9,6 @@ namespace Podemski.Musicorum.UI.ViewModels
 {
     public sealed class TrackViewModel : ViewModelBase, IRecordViewModel
     {
-        private string _title;
-        private string _description;
         private ITrack _track;
 
         private readonly IViewService _viewService;
@@ -37,16 +35,28 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         public string Title
         {
-            get => _title;
-            set => Set(() => Title, ref _title, value);
+            get => _track.Title;
+            set
+            {
+                _track.Title = value;
+
+                RaisePropertyChanged(() => Title);
+            }
         }
 
         public string Description
         {
-            get => _description;
-            set => Set(() => Description, ref _description, value);
+            get => _track.Description;
+            set
+            {
+                _track.Description = value;
+
+                RaisePropertyChanged(() => Description);
+            }
         }
 
         public RelayCommand OpenAlbumCommand => new RelayCommand(() => _viewService.ShowView(_track.Album));
+
+        public RelayCommand SaveCommand => new RelayCommand(() => _trackService.Update(_track));
     }
 }

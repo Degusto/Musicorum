@@ -6,11 +6,13 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       Background="White">
-    <Grid>
+    <Grid Margin="3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -18,8 +20,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Album: " FontSize="30"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" FontSize="30">
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Album: " FontSize="30" Margin="3"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" FontSize="30" Margin="3">
             <Hyperlink>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
@@ -32,8 +34,10 @@
             </Hyperlink>
         </TextBlock>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Tytuł: " FontSize="30"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="30" Text="{Binding Title, Mode=TwoWay, FallbackValue=Title}"/>
-        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Description, Mode=TwoWay, FallbackValue=Opis}"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Tytuł: " FontSize="30" Margin="3"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="30" Text="{Binding Title, Mode=TwoWay, FallbackValue=Title}" Margin="3"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Text="Opis" FontSize="30" HorizontalAlignment="Center" Margin="3"/>
+        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Description, Mode=TwoWay, FallbackValue=Opis}" Margin="3"/>
+        <Button Content="Zapisz zmiany" Grid.Column="2" Command="{Binding SaveCommand}"/>
     </Grid>
 </Page>

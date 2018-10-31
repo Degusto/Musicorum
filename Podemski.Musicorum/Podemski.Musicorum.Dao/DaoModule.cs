@@ -16,7 +16,7 @@ namespace Podemski.Musicorum.Dao
             Bind<IRepository<ITrack>>().To<TrackRepository>();
 
 #warning Trzeba wyciągnąć z pliku konfiguracyjnego
-            Bind<IDataContext>().To<MemoryContext>();
+            Bind<IDataContext>().To<MemoryContext>().InSingletonScope();
         }
     }
 }
