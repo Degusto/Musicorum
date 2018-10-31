@@ -3,6 +3,6 @@
     internal sealed class DatabaseContext : BaseContext
     {
         protected override void LoadContext() => throw new System.NotImplementedException();
-        protected override void SaveContext() => throw new System.NotImplementedException();
+        public override void SaveChanges() => throw new System.NotImplementedException();
     }
 }

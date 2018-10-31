@@ -8,9 +8,31 @@ namespace Podemski.Musicorum.Dao.Contexts
 {
     internal sealed class MemoryContext : BaseContext
     {
-        protected override void SaveContext()
+        public override void SaveChanges()
         {
-            // We want to revert changes when application is closed
+            foreach (var artist in Artists.Cast<Artist>())
+            {
+                if (artist.Id == 0)
+                {
+                    artist.Id = Artists.Max(x => x.Id);
+                }
+            }
+
+            foreach (var album in Albums.Cast<Album>())
+            {
+                if (album.Id == 0)
+                {
+                    album.Id = Albums.Max(x => x.Id);
+                }
+            }
+
+            foreach (var tracks in Tracks.Cast<Track>())
+            {
+                if (tracks.Id == 0)
+                {
+                    tracks.Id = Tracks.Max(x => x.Id);
+                }
+            }
         }
 
         protected override void LoadContext()
@@ -123,7 +145,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             tracks[4].Album = albums[2];
             tracks[5].Album = albums[2];
             tracks[6].Album = albums[3];
-            tracks[7].Album = albums[4];
+            tracks[7].Album = albums[3];
 
             foreach (var album in albums)
             {

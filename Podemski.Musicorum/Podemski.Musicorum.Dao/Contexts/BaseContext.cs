@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-
-using Podemski.Musicorum.Dao.Entities;
 using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
 
@@ -9,43 +6,57 @@ namespace Podemski.Musicorum.Dao.Contexts
 {
     internal abstract class BaseContext : IDataContext
     {
-        public IList<IArtist> Artists { get; protected set; }
+        private bool _isLoaded = false;
 
-        public IList<IAlbum> Albums { get; protected set; }
+        private IList<IArtist> _artists;
+        private IList<IAlbum> _albums;
+        private IList<ITrack> _tracks;
 
-        public IList<ITrack> Tracks { get; protected set; }
+        public IList<IArtist> Artists
+        {
+            get
+            {
+                Load();
 
-        protected abstract void SaveContext();
+                return _artists;
+            }
+            set => _artists = value;
+        }
+
+        public IList<IAlbum> Albums
+        {
+            get
+            {
+                Load();
+
+                return _albums;
+            }
+            set => _albums = value;
+        }
+
+        public IList<ITrack> Tracks
+        {
+            get
+            {
+                Load();
+
+                return _tracks;
+            }
+            set => _tracks = value;
+        }
+
+        public abstract void SaveChanges();
 
         protected abstract void LoadContext();
 
-        public void SaveChanges()
+        private void Load()
         {
-            foreach (var artist in Artists.Cast<Artist>())
+            if (!_isLoaded)
             {
-                if (artist.Id == 0)
-                {
-                    artist.Id = Artists.Max(x => x.Id);
-                }
-            }
+                LoadContext();
 
-            foreach (var album in Albums.Cast<Album>())
-            {
-                if (album.Id == 0)
-                {
-                    album.Id = Albums.Max(x => x.Id);
-                }
+                _isLoaded = true;
             }
-
-            foreach (var tracks in Tracks.Cast<Track>())
-            {
-                if (tracks.Id == 0)
-                {
-                    tracks.Id = Tracks.Max(x => x.Id);
-                }
-            }
-
-            SaveContext();
         }
     }
 }
