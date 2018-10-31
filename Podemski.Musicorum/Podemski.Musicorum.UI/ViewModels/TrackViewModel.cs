@@ -1,32 +1,34 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+
+using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.Services;
 
 namespace Podemski.Musicorum.UI.ViewModels
 {
-    public sealed class TrackViewModel : ViewModelBase
+    public sealed class TrackViewModel : ViewModelBase, IRecordViewModel
     {
         private string _title;
         private string _description;
         private ITrack _track;
 
         private readonly IViewService _viewService;
-        private readonly IAlbumService _albumService;
+        private readonly ITrackService _trackService;
 
-        internal TrackViewModel(IViewService viewService, IAlbumService albumService)
+        internal TrackViewModel(IViewService viewService, ITrackService trackService)
         {
             _viewService = viewService;
-            _albumService = albumService;
+            _trackService = trackService;
         }
 
-        internal void Initialize(ITrack track)
+        public void Initialize(int id)
         {
-            _track = track;
+            _track = _trackService.Get(id);
 
-            Title = track.Title;
-            AlbumName = track.Album.Title;
-            Description = track.Description;
+            Title = _track.Title;
+            AlbumName = _track.Album.Title;
+            Description = _track.Description;
 
             RaisePropertyChanged(() => AlbumName);
         }

@@ -13,6 +13,8 @@ namespace Podemski.Musicorum.Interfaces.Services
 
         void Delete(ITrack track);
 
+        ITrack Get(int trackId);
+
         IEnumerable<ITrack> Find(SearchCriteria searchCriteria);
     }
 }

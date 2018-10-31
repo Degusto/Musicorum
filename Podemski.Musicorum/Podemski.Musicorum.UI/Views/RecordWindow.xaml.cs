@@ -7,6 +7,8 @@ namespace Podemski.Musicorum.UI.Views
     {
         public RecordWindow(IEntity entity)
         {
+            DataContext = this;
+
             InitializeComponent();
 
             Navigate(entity);
@@ -15,6 +17,8 @@ namespace Podemski.Musicorum.UI.Views
         public void Navigate(IEntity entity)
         {
             Page.Navigate(RecordPageFactory.Create(entity));
+
+            Title = entity.ToString();
         }
     }
 }

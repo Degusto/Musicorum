@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using Podemski.Musicorum.BusinessLogic.Exceptions;
 using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
@@ -40,6 +41,8 @@ namespace Podemski.Musicorum.BusinessLogic.Services
 
             _trackRepository.Save(track);
         }
+
+        public ITrack Get(int trackId) => _trackRepository.Get(trackId);
 
         public IEnumerable<ITrack> Find(SearchCriteria searchCriteria)
         {

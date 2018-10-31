@@ -1,11 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
-using Podemski.Musicorum.Interfaces.Entities;
+
+using Podemski.Musicorum.Interfaces;
 
 namespace Podemski.Musicorum.UI.ViewModels
 {
-    public sealed class ArtistViewModel : ViewModelBase
+    public sealed class ArtistViewModel : ViewModelBase, IRecordViewModel
     {
-        internal void Initialize(IArtist artist)
+        public void Initialize(int id)
         {
         }
     }

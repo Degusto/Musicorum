@@ -37,7 +37,9 @@ namespace Podemski.Musicorum.UI.ViewModels
         public string Title { get ; set ; }
         public string Description { get;set; }
 
-        public int Id => throw new System.NotImplementedException();
+        public int Id => 0;
+
+        public override string ToString() => $"{Album.Title} - {Title}";
     }
 
     class Album : IAlbum

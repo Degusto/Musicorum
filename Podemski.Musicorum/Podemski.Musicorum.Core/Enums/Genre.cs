@@ -9,6 +9,7 @@ namespace Podemski.Musicorum.Core.Enums
         Jazz = 5,
         Blues = 6,
         DiscoPolo = 7,
-        All = Rock | Rap | Trap | Pop | Jazz | Blues | DiscoPolo
+        Metal = 8,
+        All = Rock | Rap | Trap | Pop | Jazz | Blues | DiscoPolo | Metal
     }
 }

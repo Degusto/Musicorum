@@ -7,9 +7,9 @@ namespace Podemski.Musicorum.Dao.Entities
 {
     public sealed class Album : IAlbum
     {
-        public int Id { get; set; }
+        public int Id { get; internal set; }
 
-        public IArtist Artist { get; set; }
+        public IArtist Artist { get; internal set; }
 
         public string Title { get; set; }
 
@@ -22,5 +22,7 @@ namespace Podemski.Musicorum.Dao.Entities
         public string Description { get; set; }
 
         public IEnumerable<ITrack> TrackList { get; set; }
+
+        public override string ToString() => $"{Artist.Name} - {Title}";
     }
 }

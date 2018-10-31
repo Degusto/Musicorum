@@ -3,13 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Podemski.Musicorum.UI.Views"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="TrackPage"
       Background="White">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -27,15 +23,17 @@
             <Hyperlink>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding OpenAlbumCommand}"/>
+                        <i:InvokeCommandAction Command="{Binding OpenAlbumCommand, Mode=OneTime}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                  <Hyperlink.Inlines>
-                    <Run Text="Click here"/>
+                    <Run Text="{Binding AlbumName, Mode=OneTime}"/>
                 </Hyperlink.Inlines>
             </Hyperlink>
         </TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Title, Mode=TwoWay, FallbackValue=Title}"/>
-        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Description, Mode=TwoWay, FallbackValue=Opis}"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Tytuł: " FontSize="30"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="30" Text="{Binding Title, Mode=TwoWay, FallbackValue=Title}"/>
+        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Description, Mode=TwoWay, FallbackValue=Opis}"/>
     </Grid>
 </Page>
