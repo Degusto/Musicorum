@@ -2,10 +2,8 @@
 
 namespace Podemski.Musicorum.Interfaces.Entities
 {
-    public interface IArtist
+    public interface IArtist : IEntity
     {
-        int Id { get; set; }
-
         string Name { get; set; }
 
         IEnumerable<IAlbum> Albums { get; set; }

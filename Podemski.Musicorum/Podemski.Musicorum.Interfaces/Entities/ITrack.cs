@@ -1,13 +1,11 @@
 ﻿namespace Podemski.Musicorum.Interfaces.Entities
 {
-    public interface ITrack
+    public interface ITrack : IEntity
     {
-        int Id { get; }
-
         IAlbum Album { get; }
 
-        string Title { get; }
+        string Title { get; set; }
 
-        string Description { get; }
+        string Description { get; set; }
     }
 }

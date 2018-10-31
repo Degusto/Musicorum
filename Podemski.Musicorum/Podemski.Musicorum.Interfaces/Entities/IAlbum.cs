@@ -4,11 +4,9 @@ using Podemski.Musicorum.Core.Enums;
 
 namespace Podemski.Musicorum.Interfaces.Entities
 {
-    public interface IAlbum
+    public interface IAlbum : IEntity
     {
-        int Id { get; set; }
-
-        IArtist Artist { get; set; }
+        IArtist Artist { get; }
 
         string Title { get; set; }
 

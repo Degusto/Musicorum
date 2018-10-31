@@ -15,6 +15,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -83,20 +85,32 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrap\Kernel.cs" />
+    <Compile Include="Bootstrap\UiModule.cs" />
+    <Compile Include="Extensions\FrameworkElementExtensions.cs" />
+    <Compile Include="Factories\RecordPageFactory.cs" />
     <Compile Include="Services\ViewService.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TrackViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="Views\TrackWindow.xaml.cs">
-      <DependentUpon>TrackWindow.xaml</DependentUpon>
+    <Compile Include="Views\AlbumPage.xaml.cs">
+      <DependentUpon>AlbumPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\AlbumWindow.xaml">
+    <Compile Include="Views\ArtistPage.xaml.cs">
+      <DependentUpon>ArtistPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RecordWindow.xaml.cs">
+      <DependentUpon>RecordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TrackPage.xaml.cs">
+      <DependentUpon>TrackPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\AlbumPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ArtistWindow.xaml">
+    <Page Include="Views\ArtistPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,17 +122,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\AlbumWindow.xaml.cs">
-      <DependentUpon>AlbumWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ArtistWindow.xaml.cs">
-      <DependentUpon>ArtistWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\TrackWindow.xaml">
+    <Page Include="Views\RecordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TrackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,6 +168,10 @@
     <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Podemski.Musicorum.Bootstrap\Podemski.Musicorum.Bootstrap.csproj">
+      <Project>{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}</Project>
+      <Name>Podemski.Musicorum.Bootstrap</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Podemski.Musicorum.Core\Podemski.Musicorum.Core.csproj">
       <Project>{32d296c3-4164-4718-aa7b-45abed9ea8b5}</Project>
       <Name>Podemski.Musicorum.Core</Name>

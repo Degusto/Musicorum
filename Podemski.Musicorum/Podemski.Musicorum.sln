@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podemski.Musicorum.Interfac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podemski.Musicorum.Dao", "Podemski.Musicorum.Dao\Podemski.Musicorum.Dao.csproj", "{2569BBF3-A76F-430E-807B-BA470CFD5E29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podemski.Musicorum.Bootstrap", "Podemski.Musicorum.Bootstrap\Podemski.Musicorum.Bootstrap.csproj", "{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2569BBF3-A76F-430E-807B-BA470CFD5E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2569BBF3-A76F-430E-807B-BA470CFD5E29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2569BBF3-A76F-430E-807B-BA470CFD5E29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

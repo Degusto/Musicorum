@@ -1,4 +1,7 @@
-﻿using Podemski.Musicorum.Interfaces.Entities;
+﻿using System.Linq;
+using System.Windows;
+
+using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.Services;
 using Podemski.Musicorum.UI.Views;
 
@@ -6,25 +9,22 @@ namespace Podemski.Musicorum.UI.Services
 {
     public sealed class ViewService : IViewService
     {
-        public void ShowView(IArtist artist)
+        public void ShowView(IEntity entity)
         {
-            var window = new ArtistWindow(artist);
+            var window = GetRecordWindow();
 
-            window.ShowDialog();
-        }
+            if (window != null)
+            {
+                window.Navigate(entity);
+            }
+            else
+            {
+                window = new RecordWindow(entity);
 
-        public void ShowView(IAlbum album)
-        {
-            var window = new AlbumWindow(album);
+                window.ShowDialog();
+            }
 
-            window.ShowDialog();
-        }
-
-        public void ShowView(ITrack track)
-        {
-            var window = new TrackWindow(track);
-
-            window.ShowDialog();
+            RecordWindow GetRecordWindow() => Application.Current.Windows.OfType<RecordWindow>().SingleOrDefault();
         }
     }
 }

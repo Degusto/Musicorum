@@ -3,6 +3,7 @@ using System.Linq;
 
 using Ninject;
 using Ninject.Modules;
+using Podemski.Musicorum.Bootstrap;
 
 namespace Podemski.Musicorum.UI.Bootstrap
 {
@@ -17,19 +18,11 @@ namespace Podemski.Musicorum.UI.Bootstrap
                 InjectNonPublic = true
             };
 
-            var modules = GetModules();
+            var modules = Modules.GetModules().ToList();
 
-            Instance = new StandardKernel(settings, modules);
-        }
+            modules.Add(new UiModule());
 
-        private static INinjectModule[] GetModules()
-        {
-            return AppDomain
-                .CurrentDomain
-                .GetAssemblies()
-                .SelectMany(a => a.GetTypes())
-                .Where(t => t.BaseType == typeof(NinjectModule) && t.IsSealed)
-                .Select(m => (INinjectModule)Activator.CreateInstance(m)).ToArray();
+            Instance = new StandardKernel(settings, modules.ToArray());
         }
     }
 }
