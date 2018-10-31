@@ -1,7 +1,8 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-
+using Podemski.Musicorum.Core.Enums;
 using Podemski.Musicorum.Interfaces.Entities;
+using Podemski.Musicorum.Interfaces.SearchCriterias;
 using Podemski.Musicorum.Interfaces.Services;
 
 namespace Podemski.Musicorum.UI.ViewModels
@@ -15,6 +16,8 @@ namespace Podemski.Musicorum.UI.ViewModels
         {
             _viewService = viewService;
             _trackService = trackService;
+
+            SearchCriteria = new SearchCriteria();
         }
 
         public RelayCommand<IArtist> OpenArtistCommand => new RelayCommand<IArtist>(_viewService.ShowView, x => x != null);
@@ -24,5 +27,9 @@ namespace Podemski.Musicorum.UI.ViewModels
         public RelayCommand<ITrack> OpenTrackCommand => new RelayCommand<ITrack>(_viewService.ShowView, x => x != null);
 
         public RelayCommand OpenCommand => new RelayCommand(() => _viewService.ShowView(_trackService.Get(1)));
+
+        public SearchCriteria SearchCriteria { get; }
+
+        public ObjectType ObjectType { get; set; }
     }
 }

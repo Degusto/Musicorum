@@ -86,6 +86,8 @@
     </ApplicationDefinition>
     <Compile Include="Bootstrap\Kernel.cs" />
     <Compile Include="Bootstrap\UiModule.cs" />
+    <Compile Include="Converters\EnumToCollectionConverter.cs" />
+    <Compile Include="Converters\NullableBoolToStringConverter.cs" />
     <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Factories\RecordPageFactory.cs" />
     <Compile Include="Services\ViewService.cs" />
@@ -164,9 +166,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Podemski.Musicorum.Bootstrap\Podemski.Musicorum.Bootstrap.csproj">
       <Project>{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}</Project>

@@ -5,6 +5,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:enums="clr-namespace:Podemski.Musicorum.Core.Enums;assembly=Podemski.Musicorum.Core"
+        xmlns:converters="clr-namespace:Podemski.Musicorum.UI.Converters"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
@@ -29,17 +30,18 @@
             <Button Content="Szukaj" Grid.Row="0" Grid.Column="1" Margin="0,3" Command="{Binding OpenCommand}"/>
 
             <TextBlock Text="Rodzaj wyników" HorizontalAlignment="Center"/>
-            <ComboBox SelectedIndex="0">
-                <ComboBoxItem Content="Wszystkie"/>
-                <ComboBoxItem Content="Artyści"/>
-                <ComboBoxItem Content="Albumy"/>
-                <ComboBoxItem Content="Utwory"/>
-            </ComboBox>
+            <ComboBox SelectedIndex="0" 
+                      ItemsSource="{Binding Path=ObjectType, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValuePath="Key"
+                      DisplayMemberPath="Value"
+                      SelectedValue="{Binding Path=ObjectType}"/>
 
             <TextBlock Text="Rodzaj muzyki" HorizontalAlignment="Center"/>
-            <ComboBox SelectedIndex="0">
-                <ComboBoxItem Content="123"/>
-                <ComboBoxItem Content="123"/>
+            <ComboBox SelectedIndex="0" 
+                      ItemsSource="{Binding Path=SearchCriteria.Genre, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValuePath="Key"
+                      DisplayMemberPath="Value"
+                      SelectedValue="{Binding Path=SearchCriteria.Genre}">
             </ComboBox>
 
             <TextBlock Text="Wersja" HorizontalAlignment="Center"/>
