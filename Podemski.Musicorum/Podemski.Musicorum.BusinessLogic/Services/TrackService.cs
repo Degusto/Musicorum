@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
 using Podemski.Musicorum.BusinessLogic.Exceptions;
+using Podemski.Musicorum.Core.Enums;
 using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.SearchCriterias;
@@ -52,8 +53,7 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             {
                 return track.Title.Contains(searchCriteria.Name)
                     && (searchCriteria.Genre == track.Album.Genre || searchCriteria.Genre == Core.Enums.Genre.All)
-                    && (searchCriteria.IsDigital == null || track.Album.IsDigital == searchCriteria.IsDigital)
-                    && (searchCriteria.IsForeign == null || track.Album.IsForeign == searchCriteria.IsForeign);
+                    && (searchCriteria.AlbumVersion == AlbumVersion.None || (track.Album.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Digital) || (!track.Album.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Physical));
             }
         }
     }

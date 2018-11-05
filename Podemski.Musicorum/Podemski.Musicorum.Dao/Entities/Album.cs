@@ -17,8 +17,6 @@ namespace Podemski.Musicorum.Dao.Entities
 
         public bool IsDigital { get; set; }
 
-        public bool IsForeign { get; set; }
-
         public string Description { get; set; }
 
         public IEnumerable<ITrack> TrackList { get; set; }

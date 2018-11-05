@@ -87,7 +87,6 @@
     <Compile Include="Bootstrap\Kernel.cs" />
     <Compile Include="Bootstrap\UiModule.cs" />
     <Compile Include="Converters\EnumToCollectionConverter.cs" />
-    <Compile Include="Converters\NullableBoolToStringConverter.cs" />
     <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Factories\RecordPageFactory.cs" />
     <Compile Include="Services\ViewService.cs" />

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AlbumVersion.cs" />
     <Compile Include="Enums\Genre.cs" />
     <Compile Include="Enums\ObjectType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Podemski.Musicorum.BusinessLogic.Exceptions;
+using Podemski.Musicorum.Core.Enums;
 using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.SearchCriterias;
@@ -51,8 +52,7 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             {
                 return artist.Name.Contains(searchCriteria.Name)
                     && artist.Albums.Any(a => a.Genre == searchCriteria.Genre || searchCriteria.Genre == Core.Enums.Genre.All)
-                    && (searchCriteria.IsDigital == null || artist.Albums.Any(a => a.IsDigital == searchCriteria.IsDigital))
-                    && (searchCriteria.IsForeign == null || artist.Albums.Any(a => a.IsForeign == searchCriteria.IsForeign));
+                    && (searchCriteria.AlbumVersion == AlbumVersion.None || artist.Albums.Any(a => (a.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Digital) || (!a.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Physical)));
             }
         }
     }

@@ -24,10 +24,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Grid.Column="0" Margin="6"/>
+        <TextBox Grid.Row="0" Grid.Column="0" Margin="6" Text="{Binding SearchCriteria.Name}"/>
 
         <WrapPanel Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="3">
-            <Button Content="Szukaj" Grid.Row="0" Grid.Column="1" Margin="0,3" Command="{Binding OpenCommand}"/>
+            <Button Content="Szukaj" Grid.Row="0" Grid.Column="1" Margin="0,3" Command="{Binding SearchCommand}"/>
 
             <TextBlock Text="Rodzaj wyników" HorizontalAlignment="Center"/>
             <ComboBox SelectedIndex="0" 
@@ -45,17 +45,11 @@
             </ComboBox>
 
             <TextBlock Text="Wersja" HorizontalAlignment="Center"/>
-            <ComboBox SelectedIndex="0">
-                <ComboBoxItem Content="---"/>
-                <ComboBoxItem Content="Cyfrowa"/>
-                <ComboBoxItem Content="Fizyczna"/>
-            </ComboBox>
-
-            <TextBlock Text="Pochodzenie" HorizontalAlignment="Center"/>
-            <ComboBox SelectedIndex="0">
-                <ComboBoxItem Content="--"/>
-                <ComboBoxItem Content="Polski"/>
-                <ComboBoxItem Content="Zagraniczny"/>
+            <ComboBox SelectedIndex="0" 
+                      ItemsSource="{Binding Path=SearchCriteria.AlbumVersion, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValuePath="Key"
+                      DisplayMemberPath="Value"
+                      SelectedValue="{Binding Path=SearchCriteria.AlbumVersion}">
             </ComboBox>
         </WrapPanel>
 
@@ -66,27 +60,33 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <GroupBox Header="Albumy" Grid.Column="0" Margin="3">
-                <ListBox>
-                    <ListBoxItem Content="ASD1"/>
-                    <ListBoxItem Content="ASD2"/>
-                    <ListBoxItem Content="ASD3"/>
+            <GroupBox Header="Artyści" Grid.Column="0" Margin="3">
+                <ListBox ItemsSource="{Binding Artists}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OpenArtistCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ListBox>
             </GroupBox>
 
-            <GroupBox Header="Artyści" Grid.Column="1" Margin="3">
-                <ListBox>
-                    <ListBoxItem Content="ASD1"/>
-                    <ListBoxItem Content="ASD2"/>
-                    <ListBoxItem Content="ASD3"/>
+            <GroupBox Header="Albumy" Grid.Column="1" Margin="3">
+                <ListBox ItemsSource="{Binding Albums}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OpenAlbumCommand}" CommandParameter="{Binding}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ListBox>
             </GroupBox>
 
             <GroupBox Header="Utwory" Grid.Column="2" Margin="3">
-                <ListBox>
-                    <ListBoxItem Content="ASD1"/>
-                    <ListBoxItem Content="ASD2"/>
-                    <ListBoxItem Content="ASD3"/>
+                <ListBox ItemsSource="{Binding Tracks}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OpenTrackCommand}" CommandParameter="{Binding SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ListBox>
             </GroupBox>
         </Grid>

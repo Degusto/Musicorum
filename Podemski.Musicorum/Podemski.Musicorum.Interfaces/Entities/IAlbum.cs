@@ -14,8 +14,6 @@ namespace Podemski.Musicorum.Interfaces.Entities
 
         bool IsDigital { get; set; }
 
-        bool IsForeign { get; set; }
-
         string Description { get; set; }
 
         IEnumerable<ITrack> TrackList { get; set; }
