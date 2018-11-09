@@ -95,12 +95,14 @@ namespace Podemski.Musicorum.Dao.Contexts
                 {
                     Id = 1,
                     Title = "Album 1",
+                    IsDigital = true,
                     Genre = Core.Enums.Genre.Blues
                 },
                 new Album
                 {
                     Id = 2,
                     Title = "Album 2",
+                    IsDigital = true,
                     Genre = Core.Enums.Genre.Pop
                 },
                 new Album

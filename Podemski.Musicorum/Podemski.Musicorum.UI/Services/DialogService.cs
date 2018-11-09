@@ -6,8 +6,10 @@ namespace Podemski.Musicorum.UI.Services
 {
     internal sealed class DialogService : IDialogService
     {
-        public void ShowError(string message) => MessageBox.Show(message, "Komunikat", MessageBoxButton.OK, MessageBoxImage.Information);
+        public void ShowInfo(string message) => MessageBox.Show(message, "Komunikat", MessageBoxButton.OK, MessageBoxImage.Information);
 
-        public void ShowInfo(string message) => MessageBox.Show(message, "Wystąpił błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+        public void ShowError(string message) => MessageBox.Show(message, "Wystąpił błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+
+        public bool ShowQuestion(string message) => MessageBox.Show(message, "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
     }
 }

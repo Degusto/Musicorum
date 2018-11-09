@@ -63,6 +63,11 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         private void Update()
         {
+            if (!_dialogService.ShowQuestion("Chcesz zapisać zmiany?"))
+            {
+                return;
+            }
+
             _trackService.Update(_track);
 
             _dialogService.ShowInfo("Zapisano.");

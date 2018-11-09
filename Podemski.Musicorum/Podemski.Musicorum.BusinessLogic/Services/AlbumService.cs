@@ -43,6 +43,8 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             _albumRepository.Save(album);
         }
 
+        public IAlbum Get(int albumId) => _albumRepository.Get(albumId);
+
         public IEnumerable<IAlbum> Find(SearchCriteria searchCriteria)
         {
             return _albumRepository.Find(IsMatch);

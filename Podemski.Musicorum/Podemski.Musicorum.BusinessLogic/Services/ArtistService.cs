@@ -44,6 +44,8 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             _artistRepository.Save(artist);
         }
 
+        public IArtist Get(int artistId) => _artistRepository.Get(artistId);
+
         public IEnumerable<IArtist> Find(SearchCriteria searchCriteria)
         {
             return _artistRepository.Find(IsMatch);
