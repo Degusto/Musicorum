@@ -9,10 +9,12 @@ namespace Podemski.Musicorum.Dao.Repositories
     internal sealed class ArtistRepository : IRepository<IArtist>
     {
         private readonly IDataContext _context;
+        private readonly IRepository<IAlbum> _albumRepository;
 
-        internal ArtistRepository(IDataContext context)
+        internal ArtistRepository(IDataContext context, IRepository<IAlbum> albumRepository)
         {
             _context = context;
+            _albumRepository = albumRepository;
         }
 
         public IArtist Get(int id) => _context.Artists.Single(x => x.Id == id);
@@ -24,17 +26,14 @@ namespace Podemski.Musicorum.Dao.Repositories
 
         public void Delete(int id)
         {
-            _context.Artists.Remove(Get(id));
+            var artist = Get(id);
 
-            foreach (var album in _context.Albums.Where(a => a.Artist.Id == id).ToList())
+            foreach(var album in artist.Albums)
             {
-                foreach (var track in _context.Tracks.Where(t => t.Album.Id == id).ToList())
-                {
-                    _context.Tracks.Remove(track);
-                }
-
-                _context.Albums.Remove(album);
+                _albumRepository.Delete(album.Id);
             }
+
+            _context.Artists.Remove(artist);
 
             _context.SaveChanges();
         }
