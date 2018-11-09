@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+
 using Podemski.Musicorum.Interfaces.Services;
 using Podemski.Musicorum.UI.Services;
 using Podemski.Musicorum.UI.ViewModels;
@@ -11,6 +12,7 @@ namespace Podemski.Musicorum.UI.Bootstrap
         public override void Load()
         {
             Bind<IViewService>().To<ViewService>();
+            Bind<IDialogService>().To<DialogService>();
             Bind<MainViewModel>().ToSelf();
             Bind<ArtistViewModel>().ToSelf();
             Bind<AlbumViewModel>().ToSelf();

@@ -27,13 +27,11 @@ namespace Podemski.Musicorum.UI.ViewModels
             SearchCriteria = new SearchCriteria();
         }
 
-        public RelayCommand<IArtist> OpenArtistCommand => new RelayCommand<IArtist>(_viewService.ShowView, x => x != null);
+        public RelayCommand<IArtist> OpenArtistCommand => new RelayCommand<IArtist>(ShowView, x => x != null);
 
-        public RelayCommand<IAlbum> OpenAlbumCommand => new RelayCommand<IAlbum>(_viewService.ShowView, x => x != null);
+        public RelayCommand<IAlbum> OpenAlbumCommand => new RelayCommand<IAlbum>(ShowView, x => x != null);
 
-        public RelayCommand<object> OpenTrackCommand => new RelayCommand<object>(x=> { }, x => x != null);
-
-        public RelayCommand OpenCommand => new RelayCommand(() => _viewService.ShowView(_trackService.Get(1)));
+        public RelayCommand<ITrack> OpenTrackCommand => new RelayCommand<ITrack>(ShowView, x => x != null);
 
         public RelayCommand SearchCommand => new RelayCommand(Search);
 
@@ -46,6 +44,13 @@ namespace Podemski.Musicorum.UI.ViewModels
         public IEnumerable<IAlbum> Albums => _albumService.Find(SearchCriteria);
 
         public IEnumerable<ITrack> Tracks => _trackService.Find(SearchCriteria);
+
+        private void ShowView(IEntity entity)
+        {
+            _viewService.ShowView(entity);
+
+            Search();
+        }
 
         private void Search()
         {

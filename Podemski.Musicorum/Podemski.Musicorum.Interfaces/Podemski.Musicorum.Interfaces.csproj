@@ -52,6 +52,7 @@
     <Compile Include="SearchCriterias\SearchCriteria.cs" />
     <Compile Include="Services\IAlbumService.cs" />
     <Compile Include="Services\IArtistService.cs" />
+    <Compile Include="Services\IDialogService.cs" />
     <Compile Include="Services\ITrackService.cs" />
     <Compile Include="Services\IViewService.cs" />
   </ItemGroup>

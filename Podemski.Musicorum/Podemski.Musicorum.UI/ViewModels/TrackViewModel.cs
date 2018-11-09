@@ -13,11 +13,13 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         private readonly IViewService _viewService;
         private readonly ITrackService _trackService;
+        private readonly IDialogService _dialogService;
 
-        internal TrackViewModel(IViewService viewService, ITrackService trackService)
+        internal TrackViewModel(IViewService viewService, ITrackService trackService, IDialogService dialogService)
         {
             _viewService = viewService;
             _trackService = trackService;
+            _dialogService = dialogService;
         }
 
         public void Initialize(int id)
@@ -57,6 +59,13 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         public RelayCommand OpenAlbumCommand => new RelayCommand(() => _viewService.ShowView(_track.Album));
 
-        public RelayCommand SaveCommand => new RelayCommand(() => _trackService.Update(_track));
+        public RelayCommand SaveCommand => new RelayCommand(Update);
+
+        private void Update()
+        {
+            _trackService.Update(_track);
+
+            _dialogService.ShowInfo("Zapisano.");
+        }
     }
 }
