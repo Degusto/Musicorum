@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Podemski.Musicorum.Core.Enums;
 using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.Services;
@@ -29,6 +30,8 @@ namespace Podemski.Musicorum.UI.ViewModels
             Title = _album.Title;
             ArtistName = _album.Artist.Name;
             Description = _album.Description;
+            IsDigital = _album.IsDigital;
+            Genre = _album.Genre;
 
             RaisePropertyChanged(() => ArtistName);
             RaisePropertyChanged(() => Tracks);
@@ -55,6 +58,28 @@ namespace Podemski.Musicorum.UI.ViewModels
                 _album.Description = value;
 
                 RaisePropertyChanged(() => Description);
+            }
+        }
+
+        public bool IsDigital
+        {
+            get => _album.IsDigital;
+            set
+            {
+                _album.IsDigital = value;
+
+                RaisePropertyChanged(() => IsDigital);
+            }
+        }
+
+        public Genre Genre
+        {
+            get => _album.Genre;
+            set
+            {
+                _album.Genre = value;
+
+                RaisePropertyChanged(() => Genre);
             }
         }
 
