@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Windows;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -39,11 +39,11 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         public ObjectType ObjectType { get; set; }
 
-        public IEnumerable<IArtist> Artists => _artistService.Find(SearchCriteria);
+        public IEnumerable<IArtist> Artists => ObjectType == ObjectType.All || ObjectType == ObjectType.Artist ? _artistService.Find(SearchCriteria) : null;
 
-        public IEnumerable<IAlbum> Albums => _albumService.Find(SearchCriteria);
+        public IEnumerable<IAlbum> Albums => ObjectType == ObjectType.All || ObjectType == ObjectType.Album ? _albumService.Find(SearchCriteria) : null;
 
-        public IEnumerable<ITrack> Tracks => _trackService.Find(SearchCriteria);
+        public IEnumerable<ITrack> Tracks => ObjectType == ObjectType.All || ObjectType == ObjectType.Track ? _trackService.Find(SearchCriteria) : null;
 
         private void ShowView(IEntity entity)
         {
