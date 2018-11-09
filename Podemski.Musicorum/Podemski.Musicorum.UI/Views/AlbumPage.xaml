@@ -7,7 +7,7 @@
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
               xmlns:converters="clr-namespace:Podemski.Musicorum.UI.Converters"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="100"
       Title="AlbumPage">
     <Grid>
         <Grid.RowDefinitions>
@@ -41,25 +41,28 @@
         </TextBlock>
 
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Tytuł: " FontSize="30" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox Grid.Row="1" Grid.Column="1" FontSize="30" Text="{Binding Title, Mode=TwoWay, FallbackValue=Title}" Margin="3"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="30" Text="{Binding Title, Mode=TwoWay, FallbackValue=Title}" Margin="3"/>
+        
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Gatunek: " FontSize="30" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Wersja cyfrowa: " FontSize="30" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-
-        <CheckBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"
-                               IsChecked="{Binding IsDigital, Mode=TwoWay, FallbackValue=Opis}" Margin="3"/>
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Wersja cyfrowa: " FontSize="30" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-
-        <ComboBox Grid.Row="3" Grid.Column="1" Margin="3"
+        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" FontSize="30"
                   ItemsSource="{Binding Path=Genre, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                   SelectedValuePath="Key"
                   DisplayMemberPath="Value"
                   SelectedValue="{Binding Path=Genre, Mode=TwoWay}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="W. cyfrowa: " FontSize="30" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <CheckBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding IsDigital, Mode=TwoWay, FallbackValue=Opis}" Margin="3"/>
 
         <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Text="Opis" FontSize="30" HorizontalAlignment="Center" Margin="3"/>
         <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Description, Mode=TwoWay, FallbackValue=Opis}" Margin="3"/>
 
         <GroupBox Header="Utwory" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="3">
             <ListBox ItemsSource="{Binding Tracks}">
+                <ListBox.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeleteTrackCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={
+x:Type ListBox}}}"/>
+                </ListBox.InputBindings>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding OpenTrackCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={

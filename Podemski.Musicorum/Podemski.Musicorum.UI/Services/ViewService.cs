@@ -24,7 +24,11 @@ namespace Podemski.Musicorum.UI.Services
                 window.ShowDialog();
             }
 
-            RecordWindow GetRecordWindow() => Application.Current.Windows.OfType<RecordWindow>().SingleOrDefault();
         }
+
+        public void CloseEntityView() => GetRecordWindow().Close();
+
+        private static RecordWindow GetRecordWindow() => Application.Current.Windows.OfType<RecordWindow>().SingleOrDefault();
+
     }
 }

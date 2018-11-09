@@ -26,6 +26,17 @@ namespace Podemski.Musicorum.Dao.Repositories
         public void Delete(int id)
         {
             _context.Albums.Remove(Get(id));
+
+            foreach (var artist in _context.Artists.Where(a => a.Albums.Any(x => x.Id == id)))
+            {
+                artist.Albums = artist.Albums.Where(a => a.Id != id);
+            }
+
+            foreach (var track in _context.Tracks.Where(t => t.Album.Id == id).ToList())
+            {
+                _context.Tracks.Remove(track); 
+            }
+
             _context.SaveChanges();
         }
 

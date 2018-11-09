@@ -6,20 +6,8 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       WindowStartupLocation="CenterScreen"
-        Height="450" Width="800">
+        Height="600" Width="1000">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!--<Button Content="&lt;=" Grid.Row="0" Grid.Column="0" Command="{Binding BackwardCommand, Mode=OneTime}"/>-->
-        <!--<Button Content="=&gt;" Grid.Row="0" Grid.Column="1"/>-->
-
         <Frame x:Name="Page" x:FieldModifier="private" Grid.Row="1" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"/>
     </Grid>
 </controls:MetroWindow>

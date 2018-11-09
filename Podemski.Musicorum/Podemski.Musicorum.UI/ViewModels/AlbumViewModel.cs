@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+
 using Podemski.Musicorum.Core.Enums;
 using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
@@ -14,12 +16,14 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         private readonly IViewService _viewService;
         private readonly IAlbumService _albumService;
+        private readonly ITrackService _trackService;
         private readonly IDialogService _dialogService;
 
-        internal AlbumViewModel(IViewService viewService, IAlbumService albumService, IDialogService dialogService)
+        internal AlbumViewModel(IViewService viewService, IAlbumService albumService, ITrackService trackService, IDialogService dialogService)
         {
             _viewService = viewService;
             _albumService = albumService;
+            _trackService = trackService;
             _dialogService = dialogService;
         }
 
@@ -89,6 +93,8 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         public RelayCommand<ITrack> OpenTrackCommand => new RelayCommand<ITrack>(_viewService.ShowView, x => x != null);
 
+        public RelayCommand<ITrack> DeleteTrackCommand => new RelayCommand<ITrack>(Delete, x => x != null);
+
         public RelayCommand SaveCommand => new RelayCommand(Update);
 
         private void Update()
@@ -101,6 +107,20 @@ namespace Podemski.Musicorum.UI.ViewModels
             _albumService.Update(_album);
 
             _dialogService.ShowInfo("Zapisano.");
+        }
+
+        private void Delete(ITrack track)
+        {
+            if (!_dialogService.ShowQuestion("Chcesz usunąć obiekt?"))
+            {
+                return;
+            }
+
+            _trackService.Delete(track);
+
+            _dialogService.ShowInfo("Usunięto.");
+
+            Initialize(_album.Id);
         }
     }
 }
