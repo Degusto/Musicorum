@@ -1,7 +1,8 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Windows.Input;
+
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.Services;
 
@@ -57,9 +58,9 @@ namespace Podemski.Musicorum.UI.ViewModels
             }
         }
 
-        public RelayCommand OpenAlbumCommand => new RelayCommand(() => _viewService.ShowView(_track.Album));
+        public ICommand OpenAlbumCommand => new RelayCommand(() => _viewService.ShowView(_track.Album));
 
-        public RelayCommand SaveCommand => new RelayCommand(Save);
+        public ICommand SaveCommand => new RelayCommand(Save);
 
         private void Save()
         {

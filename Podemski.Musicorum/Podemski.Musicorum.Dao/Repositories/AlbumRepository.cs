@@ -51,6 +51,8 @@ namespace Podemski.Musicorum.Dao.Repositories
             if (!Exists(item.Id))
             {
                 _context.Albums.Add((Album)item);
+
+                ((Artist)item.Artist).Albums = item.Artist.Albums.Concat(new List<Album> { (Album)item });
             }
 
             _context.SaveChanges();

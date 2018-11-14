@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
-
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 using Podemski.Musicorum.Core.Enums;
 using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
+using Podemski.Musicorum.Interfaces.Factories;
 using Podemski.Musicorum.Interfaces.Services;
 
 namespace Podemski.Musicorum.UI.ViewModels
@@ -17,13 +18,15 @@ namespace Podemski.Musicorum.UI.ViewModels
         private readonly IViewService _viewService;
         private readonly IAlbumService _albumService;
         private readonly ITrackService _trackService;
+        private readonly ITrackFactory _trackFactory;
         private readonly IDialogService _dialogService;
 
-        internal AlbumViewModel(IViewService viewService, IAlbumService albumService, ITrackService trackService, IDialogService dialogService)
+        internal AlbumViewModel(IViewService viewService, IAlbumService albumService, ITrackService trackService, ITrackFactory trackFactory, IDialogService dialogService)
         {
             _viewService = viewService;
             _albumService = albumService;
             _trackService = trackService;
+            _trackFactory = trackFactory;
             _dialogService = dialogService;
         }
 
@@ -89,11 +92,13 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         public IEnumerable<ITrack> Tracks => _album.TrackList;
 
-        public RelayCommand OpenArtistCommand => new RelayCommand(() => _viewService.ShowView(_album.Artist));
+        public ICommand OpenArtistCommand => new RelayCommand(() => _viewService.ShowView(_album.Artist));
 
-        public RelayCommand<ITrack> OpenTrackCommand => new RelayCommand<ITrack>(_viewService.ShowView, x => x != null);
+        public ICommand OpenTrackCommand => new RelayCommand<ITrack>(_viewService.ShowView, x => x != null);
 
-        public RelayCommand<ITrack> DeleteTrackCommand => new RelayCommand<ITrack>(DeleteTrack, x => x != null);
+        public ICommand DeleteTrackCommand => new RelayCommand<ITrack>(DeleteTrack, x => x != null);
+
+        public ICommand AddTrackCommand => new RelayCommand(AddTrack);
 
         public RelayCommand SaveCommand => new RelayCommand(Save);
 
@@ -121,6 +126,15 @@ namespace Podemski.Musicorum.UI.ViewModels
             _dialogService.ShowInfo("Usunięto.");
 
             RaisePropertyChanged(() => Tracks);
+        }
+
+        private void AddTrack()
+        {
+            var track = _trackFactory.Create(_album, "Nowy", string.Empty);
+
+            _trackService.Save(track);
+
+            _viewService.ShowView(track);
         }
     }
 }
