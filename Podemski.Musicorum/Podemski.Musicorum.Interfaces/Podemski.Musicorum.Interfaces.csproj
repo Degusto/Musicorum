@@ -48,7 +48,6 @@
     <Compile Include="Factories\IAlbumFactory.cs" />
     <Compile Include="Factories\IArtistFactory.cs" />
     <Compile Include="Factories\ITrackFactory.cs" />
-    <Compile Include="IRecordViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAlbumRepository.cs" />
     <Compile Include="Repositories\IArtistRepository.cs" />
@@ -60,6 +59,7 @@
     <Compile Include="Services\IDialogService.cs" />
     <Compile Include="Services\ITrackService.cs" />
     <Compile Include="Services\IViewService.cs" />
+    <Compile Include="Services\ISearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Podemski.Musicorum.Core\Podemski.Musicorum.Core.csproj">

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Windows.Input;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
 using Podemski.Musicorum.Core.Enums;
 using Podemski.Musicorum.Interfaces.Entities;
+using Podemski.Musicorum.Interfaces.Factories;
 using Podemski.Musicorum.Interfaces.SearchCriterias;
 using Podemski.Musicorum.Interfaces.Services;
 
@@ -15,33 +17,32 @@ namespace Podemski.Musicorum.UI.ViewModels
         private readonly SearchCriteria _searchCriteria;
 
         private readonly IViewService _viewService;
+        private readonly ISearchService _searchService;
+        private readonly IArtistFactory _artistFactory;
         private readonly IArtistService _artistService;
-        private readonly IAlbumService _albumService;
-        private readonly ITrackService _trackService;
 
-        public MainViewModel(IViewService viewService, IArtistService artistService, IAlbumService albumService, ITrackService trackService)
+        public MainViewModel(IViewService viewService, ISearchService searchService, IArtistFactory artistFactory, IArtistService artistService)
         {
             _viewService = viewService;
+            _searchService = searchService;
+            _artistFactory = artistFactory;
             _artistService = artistService;
-            _albumService = albumService;
-            _trackService = trackService;
-
             _searchCriteria = new SearchCriteria();
         }
 
-        public RelayCommand<IArtist> OpenArtistCommand => new RelayCommand<IArtist>(ShowView, x => x != null);
+        public ICommand OpenArtistCommand => new RelayCommand<IArtist>(ShowView, x => x != null);
 
-        public RelayCommand<IAlbum> OpenAlbumCommand => new RelayCommand<IAlbum>(ShowView, x => x != null);
+        public ICommand OpenAlbumCommand => new RelayCommand<IAlbum>(ShowView, x => x != null);
 
-        public RelayCommand<ITrack> OpenTrackCommand => new RelayCommand<ITrack>(ShowView, x => x != null);
+        public ICommand OpenTrackCommand => new RelayCommand<ITrack>(ShowView, x => x != null);
 
-        public RelayCommand SearchCommand => new RelayCommand(Search);
+        public ICommand AddArtistCommand => new RelayCommand(AddArtist);
 
-        public IEnumerable<IArtist> Artists => _artistService.Find(_searchCriteria);
+        public IEnumerable<IArtist> Artists => _searchService.FindArtists(_searchCriteria);
 
-        public IEnumerable<IAlbum> Albums =>  _albumService.Find(_searchCriteria);
+        public IEnumerable<IAlbum> Albums => _searchService.FindAlbum(_searchCriteria);
 
-        public IEnumerable<ITrack> Tracks => _trackService.Find(_searchCriteria);
+        public IEnumerable<ITrack> Tracks => _searchService.FindTrack(_searchCriteria);
 
         public string Name
         {
@@ -94,6 +95,15 @@ namespace Podemski.Musicorum.UI.ViewModels
             RaisePropertyChanged(() => Artists);
             RaisePropertyChanged(() => Albums);
             RaisePropertyChanged(() => Tracks);
+        }
+
+        private void AddArtist()
+        {
+            var artist = _artistFactory.Create("Nowy");
+
+            _artistService.Save(artist);
+
+            ShowView(artist);
         }
     }
 }

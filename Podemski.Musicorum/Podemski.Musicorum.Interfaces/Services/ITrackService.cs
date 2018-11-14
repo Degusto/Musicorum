@@ -7,7 +7,7 @@ namespace Podemski.Musicorum.Interfaces.Services
 {
     public interface ITrackService
     {
-        void Update(ITrack track);
+        void Save(ITrack track);
 
         void Delete(ITrack track);
 

@@ -18,7 +18,7 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             _trackRepository = trackRepository;
         }
 
-        public void Add(ITrack track)
+        public void Save(ITrack track)
         {
             _trackRepository.Save(track);
         }
@@ -31,16 +31,6 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             }
 
             _trackRepository.Delete(track.Id);
-        }
-
-        public void Update(ITrack track)
-        {
-            if (!_trackRepository.Exists(track.Id))
-            {
-                throw new NotFoundException(track.Id, "track");
-            }
-
-            _trackRepository.Save(track);
         }
 
         public ITrack Get(int trackId)
@@ -60,7 +50,7 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             bool IsMatch(ITrack track)
             {
                 return track.Title.Contains(searchCriteria.Name)
-                    && (searchCriteria.Genre == track.Album.Genre || searchCriteria.Genre == Core.Enums.Genre.All)
+                    && (searchCriteria.Genre == track.Album.Genre || searchCriteria.Genre == Genre.All)
                     && (searchCriteria.AlbumVersion == AlbumVersion.None || (track.Album.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Digital) || (!track.Album.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Physical));
             }
         }

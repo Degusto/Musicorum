@@ -18,7 +18,7 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             _albumRepository = albumRepository;
         }
 
-        public void Add(IAlbum album)
+        public void Save(IAlbum album)
         {
             _albumRepository.Save(album);
         }
@@ -31,16 +31,6 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             }
 
             _albumRepository.Delete(album.Id);
-        }
-
-        public void Update(IAlbum album)
-        {
-            if (!_albumRepository.Exists(album.Id))
-            {
-                throw new NotFoundException(album.Id, "album");
-            }
-
-            _albumRepository.Save(album);
         }
 
         public IAlbum Get(int albumId)
@@ -60,7 +50,7 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             bool IsMatch(IAlbum album)
             {
                 return album.Title.Contains(searchCriteria.Name)
-                    && (album.Genre == searchCriteria.Genre || searchCriteria.Genre == Core.Enums.Genre.All)
+                    && (album.Genre == searchCriteria.Genre || searchCriteria.Genre == Genre.All)
                     && (searchCriteria.AlbumVersion == AlbumVersion.None || (album.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Digital) || (!album.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Physical));
             }
         }

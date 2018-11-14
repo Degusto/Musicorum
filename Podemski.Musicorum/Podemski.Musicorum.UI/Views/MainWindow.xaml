@@ -28,7 +28,7 @@
         <TextBox Grid.Row="0" Grid.Column="0" Margin="6" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
 
         <WrapPanel Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="3">
-            <Button Content="Szukaj" Grid.Row="0" Grid.Column="1" Margin="0,3" Command="{Binding SearchCommand}"/>
+            <Button Content="Dodaj artystę" Grid.Row="0" Grid.Column="1" Margin="0,3" Command="{Binding AddArtistCommand}"/>
 
             <!--<TextBlock Text="Rodzaj wyników" HorizontalAlignment="Center"/>
             <ComboBox SelectedIndex="0" 

@@ -10,7 +10,7 @@ using Podemski.Musicorum.Interfaces.Services;
 
 namespace Podemski.Musicorum.UI.ViewModels
 {
-    public sealed class AlbumViewModel : ViewModelBase, IRecordViewModel
+    public sealed class AlbumViewModel : ViewModelBase
     {
         private IAlbum _album;
 
@@ -27,9 +27,9 @@ namespace Podemski.Musicorum.UI.ViewModels
             _dialogService = dialogService;
         }
 
-        public void Initialize(int id)
+        public void Initialize(IAlbum album)
         {
-            _album = _albumService.Get(id);
+            _album = album;
 
             Title = _album.Title;
             ArtistName = _album.Artist.Name;
@@ -95,16 +95,16 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         public RelayCommand<ITrack> DeleteTrackCommand => new RelayCommand<ITrack>(DeleteTrack, x => x != null);
 
-        public RelayCommand SaveCommand => new RelayCommand(Update);
+        public RelayCommand SaveCommand => new RelayCommand(Save);
 
-        private void Update()
+        private void Save()
         {
             if (!_dialogService.ShowQuestion("Chcesz zapisać zmiany?"))
             {
                 return;
             }
 
-            _albumService.Update(_album);
+            _albumService.Save(_album);
 
             _dialogService.ShowInfo("Zapisano.");
         }

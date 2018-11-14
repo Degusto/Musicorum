@@ -7,7 +7,7 @@ namespace Podemski.Musicorum.Interfaces.Services
 {
     public interface IAlbumService
     {
-        void Update(IAlbum album);
+        void Save(IAlbum album);
 
         void Delete(IAlbum album);
 

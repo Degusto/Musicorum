@@ -19,7 +19,7 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             _artistRepository = artistRepository;
         }
 
-        public void Add(IArtist artist)
+        public void Save(IArtist artist)
         {
             _artistRepository.Save(artist);
         }
@@ -32,16 +32,6 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             }
 
             _artistRepository.Delete(artist.Id);
-        }
-
-        public void Update(IArtist artist)
-        {
-            if (!_artistRepository.Exists(artist.Id))
-            {
-                throw new NotFoundException(artist.Id, "artist");
-            }
-
-            _artistRepository.Save(artist);
         }
 
         public IArtist Get(int artistId)
@@ -61,7 +51,7 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             bool IsMatch(IArtist artist)
             {
                 return artist.Name.Contains(searchCriteria.Name)
-                    && artist.Albums.Any(a => a.Genre == searchCriteria.Genre || searchCriteria.Genre == Core.Enums.Genre.All)
+                    && (searchCriteria.Genre == Genre.All || artist.Albums.Any(a => a.Genre == searchCriteria.Genre))
                     && (searchCriteria.AlbumVersion == AlbumVersion.None || artist.Albums.Any(a => (a.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Digital) || (!a.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Physical)));
             }
         }

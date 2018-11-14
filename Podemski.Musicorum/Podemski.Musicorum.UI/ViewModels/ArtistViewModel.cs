@@ -3,13 +3,12 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
-using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.Services;
 
 namespace Podemski.Musicorum.UI.ViewModels
 {
-    public sealed class ArtistViewModel : ViewModelBase, IRecordViewModel
+    public sealed class ArtistViewModel : ViewModelBase
     {
         private IArtist _artist;
 
@@ -26,9 +25,9 @@ namespace Podemski.Musicorum.UI.ViewModels
             _dialogService = dialogService;
         }
 
-        public void Initialize(int id)
+        public void Initialize(IArtist artist)
         {
-            _artist = _artistService.Get(id);
+            _artist = artist;
 
             Name = _artist.Name;
 
@@ -52,18 +51,18 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         public RelayCommand<IAlbum> DeleteAlbumCommand => new RelayCommand<IAlbum>(DeleteAlbum, x => x != null);
 
-        public RelayCommand SaveCommand => new RelayCommand(Update);
+        public RelayCommand SaveCommand => new RelayCommand(Save);
 
         public RelayCommand DeleteCommand => new RelayCommand(DeleteArtist);
 
-        private void Update()
+        private void Save()
         {
             if(!_dialogService.ShowQuestion("Chcesz zapisać zmiany?"))
             {
                 return;
             }
 
-            _artistService.Update(_artist);
+            _artistService.Save(_artist);
 
             _dialogService.ShowInfo("Zapisano.");
         }
@@ -79,7 +78,7 @@ namespace Podemski.Musicorum.UI.ViewModels
 
             _dialogService.ShowInfo("Usunięto.");
 
-            Initialize(_artist.Id);
+            RaisePropertyChanged(() => Albums);
         }
 
         private void DeleteArtist()

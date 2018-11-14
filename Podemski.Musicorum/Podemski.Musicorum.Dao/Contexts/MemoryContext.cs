@@ -14,7 +14,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             {
                 if (artist.Id == 0)
                 {
-                    artist.Id = Artists.Max(x => x.Id);
+                    artist.Id = Artists.Max(x => x.Id) + 1;
                 }
             }
 
@@ -22,7 +22,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             {
                 if (album.Id == 0)
                 {
-                    album.Id = Albums.Max(x => x.Id);
+                    album.Id = Albums.Max(x => x.Id) + 1;
                 }
             }
 
@@ -30,7 +30,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             {
                 if (tracks.Id == 0)
                 {
-                    tracks.Id = Tracks.Max(x => x.Id);
+                    tracks.Id = Tracks.Max(x => x.Id) + 1;
                 }
             }
         }

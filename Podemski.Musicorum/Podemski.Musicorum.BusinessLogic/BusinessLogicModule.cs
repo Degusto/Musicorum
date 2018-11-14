@@ -12,6 +12,7 @@ namespace Podemski.Musicorum.BusinessLogic
             Bind<IAlbumService>().To<AlbumService>();
             Bind<IArtistService>().To<ArtistService>();
             Bind<ITrackService>().To<TrackService>();
+            Bind<ISearchService>().To<SearchService>();
         }
     }
 }
