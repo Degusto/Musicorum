@@ -53,9 +53,9 @@ namespace Podemski.Musicorum.Dao.Contexts
         {
             if (!_isLoaded)
             {
-                LoadContext();
-
                 _isLoaded = true;
+
+                LoadContext();
             }
         }
     }

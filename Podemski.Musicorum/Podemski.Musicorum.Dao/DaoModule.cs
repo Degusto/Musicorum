@@ -20,7 +20,7 @@ namespace Podemski.Musicorum.Dao
             Bind<ITrackFactory>().To<TrackFactory>();
 
 #warning Trzeba wyciągnąć z pliku konfiguracyjnego
-            Bind<Context>().To<MemoryContext>().InSingletonScope();
+            Bind<Context>().To<FileContext>().InSingletonScope();
         }
     }
 }
