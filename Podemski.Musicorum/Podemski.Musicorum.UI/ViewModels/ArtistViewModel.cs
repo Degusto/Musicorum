@@ -50,9 +50,11 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         public RelayCommand<IAlbum> OpenAlbumCommand => new RelayCommand<IAlbum>(_viewService.ShowView, x => x != null);
 
-        public RelayCommand<IAlbum> DeleteAlbumCommand => new RelayCommand<IAlbum>(Delete, x => x != null);
+        public RelayCommand<IAlbum> DeleteAlbumCommand => new RelayCommand<IAlbum>(DeleteAlbum, x => x != null);
 
         public RelayCommand SaveCommand => new RelayCommand(Update);
+
+        public RelayCommand DeleteCommand => new RelayCommand(Delete);
 
         private void Update()
         {
@@ -66,7 +68,7 @@ namespace Podemski.Musicorum.UI.ViewModels
             _dialogService.ShowInfo("Zapisano.");
         }
 
-        private void Delete(IAlbum album)
+        private void DeleteAlbum(IAlbum album)
         {
             if (!_dialogService.ShowQuestion("Chcesz usunąć obiekt?"))
             {
@@ -78,6 +80,20 @@ namespace Podemski.Musicorum.UI.ViewModels
             _dialogService.ShowInfo("Usunięto.");
 
             Initialize(_artist.Id);
+        }
+
+        private void Delete()
+        {
+            if (!_dialogService.ShowQuestion("Chcesz usunąć obiekt?"))
+            {
+                return;
+            }
+
+            _artistService.Delete(_artist);
+
+            _dialogService.ShowInfo("Usunięto.");
+
+            _viewService.CloseEntityView();
         }
     }
 }

@@ -16,12 +16,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Tytuł: " FontSize="30" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <TextBox Grid.Row="0" Grid.Column="1" FontSize="30" Text="{Binding Name, Mode=TwoWay, FallbackValue=Name}" Margin="3"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" FontSize="30" Text="{Binding Name, Mode=TwoWay, FallbackValue=Name}" Margin="3"/>
 
-        <GroupBox Header="Albumy" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="3">
+        <GroupBox Header="Albumy" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="3">
             <ListBox ItemsSource="{Binding Albums}">
                 <ListBox.InputBindings>
                     <KeyBinding Key="Delete" Command="{Binding DeleteAlbumCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={
@@ -37,5 +38,6 @@ x:Type ListBox}}}"/>
         </GroupBox>
 
         <Button Content="Zapisz zmiany" Grid.Row="2" Grid.Column="0" Command="{Binding SaveCommand}" Margin="3"/>
+        <Button Content="Usuń artystę" Grid.Row="2" Grid.Column="2" Command="{Binding DeleteCommand}" Margin="3"/>
     </Grid>
 </Page>
