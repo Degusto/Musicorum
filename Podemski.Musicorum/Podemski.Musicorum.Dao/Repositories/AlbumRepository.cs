@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using Podemski.Musicorum.Dao.Contexts;
 using Podemski.Musicorum.Dao.Entities;
-using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
+using Podemski.Musicorum.Interfaces.Repositories;
 
 namespace Podemski.Musicorum.Dao.Repositories
 {
-    internal sealed class AlbumRepository : IRepository<IAlbum>
+    internal sealed class AlbumRepository : IAlbumRepository
     {
-        private readonly IDataContext _context;
-        private readonly IRepository<ITrack> _trackRepository;
+        private readonly Context _context;
+        private readonly ITrackRepository _trackRepository;
 
-        internal AlbumRepository(IDataContext context, IRepository<ITrack> trackRepository)
+        internal AlbumRepository(Context context, ITrackRepository trackRepository)
         {
             _context = context;
             _trackRepository = trackRepository;
@@ -27,14 +29,14 @@ namespace Podemski.Musicorum.Dao.Repositories
 
         public void Delete(int id)
         {
-            var album = Get(id);
+            var album = (Album)Get(id);
 
             foreach (var artist in _context.Artists.Where(a => a.Albums.Any(x => x.Id == id)))
             {
                 artist.Albums = artist.Albums.Where(a => a.Id != id);
             }
 
-            foreach (var track in album.TrackList)
+            foreach (var track in album.TrackList.ToList())
             {
                 _trackRepository.Delete(track.Id);
             }
@@ -46,14 +48,21 @@ namespace Podemski.Musicorum.Dao.Repositories
 
         public void Save(IAlbum item)
         {
-            if (Exists(item.Id))
+            if (!Exists(item.Id))
             {
-                _context.Albums[_context.Albums.IndexOf(Get(item.Id))] = item;
+                _context.Albums.Add((Album)item);
             }
-            else
-            {
-                _context.Albums.Add(item);
-            }
+
+            _context.SaveChanges();
+        }
+
+        public void AddTrack(IAlbum album, ITrack track)
+        {
+            var artistToAdd = (Album)Get(album.Id);
+
+            _trackRepository.Save(track);
+
+            artistToAdd.TrackList = album.TrackList.Concat(new List<ITrack> { track });
 
             _context.SaveChanges();
         }

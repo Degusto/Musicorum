@@ -6,6 +6,6 @@ namespace Podemski.Musicorum.Interfaces.Entities
     {
         string Name { get; set; }
 
-        IEnumerable<IAlbum> Albums { get; set; }
+        IEnumerable<IAlbum> Albums { get; }
     }
 }

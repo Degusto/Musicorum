@@ -2,15 +2,15 @@
 using System.Linq;
 
 using Podemski.Musicorum.Dao.Entities;
-using Podemski.Musicorum.Interfaces.Entities;
+using Podemski.Musicorum.Interfaces.Factories;
 
 namespace Podemski.Musicorum.Dao.Contexts
 {
-    internal sealed class MemoryContext : BaseContext
+    internal sealed class MemoryContext : Context
     {
         public override void SaveChanges()
         {
-            foreach (var artist in Artists.Cast<Artist>())
+            foreach (var artist in Artists)
             {
                 if (artist.Id == 0)
                 {
@@ -18,7 +18,7 @@ namespace Podemski.Musicorum.Dao.Contexts
                 }
             }
 
-            foreach (var album in Albums.Cast<Album>())
+            foreach (var album in Albums)
             {
                 if (album.Id == 0)
                 {
@@ -26,7 +26,7 @@ namespace Podemski.Musicorum.Dao.Contexts
                 }
             }
 
-            foreach (var tracks in Tracks.Cast<Track>())
+            foreach (var tracks in Tracks)
             {
                 if (tracks.Id == 0)
                 {
@@ -154,9 +154,9 @@ namespace Podemski.Musicorum.Dao.Contexts
                 album.TrackList = tracks.Where(x => x.Album == album);
             }
 
-            Artists = artists.Cast<IArtist>().ToList();
-            Albums = albums.Cast<IAlbum>().ToList();
-            Tracks = tracks.Cast<ITrack>().ToList();
+            Artists = artists;
+            Albums = albums;
+            Tracks = tracks;
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Podemski.Musicorum.Interfaces
+namespace Podemski.Musicorum.Interfaces.Repositories
 {
     public interface IRepository<T>
     {

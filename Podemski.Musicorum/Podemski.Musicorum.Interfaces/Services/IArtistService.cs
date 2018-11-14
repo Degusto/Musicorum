@@ -16,5 +16,7 @@ namespace Podemski.Musicorum.Interfaces.Services
         IArtist Get(int id);
 
         IEnumerable<IArtist> Find(SearchCriteria searchCriteria);
+
+        void AddAlbum(IArtist artist, IAlbum album);
     }
 }

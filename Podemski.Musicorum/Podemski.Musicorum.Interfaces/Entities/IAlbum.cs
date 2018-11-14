@@ -16,6 +16,6 @@ namespace Podemski.Musicorum.Interfaces.Entities
 
         string Description { get; set; }
 
-        IEnumerable<ITrack> TrackList { get; set; }
+        IEnumerable<ITrack> TrackList { get; }
     }
 }

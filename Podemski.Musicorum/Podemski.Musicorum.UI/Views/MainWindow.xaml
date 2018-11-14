@@ -30,12 +30,12 @@
         <WrapPanel Orientation="Vertical" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="3">
             <Button Content="Szukaj" Grid.Row="0" Grid.Column="1" Margin="0,3" Command="{Binding SearchCommand}"/>
 
-            <TextBlock Text="Rodzaj wyników" HorizontalAlignment="Center"/>
+            <!--<TextBlock Text="Rodzaj wyników" HorizontalAlignment="Center"/>
             <ComboBox SelectedIndex="0" 
                       ItemsSource="{Binding Path=ObjectType, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValuePath="Key"
                       DisplayMemberPath="Value"
-                      SelectedValue="{Binding Path=ObjectType}"/>
+                      SelectedValue="{Binding Path=ObjectType}"/>-->
 
             <TextBlock Text="Rodzaj muzyki" HorizontalAlignment="Center"/>
             <ComboBox SelectedIndex="0" 

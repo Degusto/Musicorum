@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Podemski.Musicorum.UI.Properties {
-    using System;
-    
-    
+namespace Podemski.Musicorum.UI.Properties
+{
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

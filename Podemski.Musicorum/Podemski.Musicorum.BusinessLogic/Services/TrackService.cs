@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 using Podemski.Musicorum.BusinessLogic.Exceptions;
 using Podemski.Musicorum.Core.Enums;
-using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
+using Podemski.Musicorum.Interfaces.Repositories;
 using Podemski.Musicorum.Interfaces.SearchCriterias;
 using Podemski.Musicorum.Interfaces.Services;
 
@@ -11,9 +11,9 @@ namespace Podemski.Musicorum.BusinessLogic.Services
 {
     internal sealed class TrackService : ITrackService
     {
-        private readonly IRepository<ITrack> _trackRepository;
+        private readonly ITrackRepository _trackRepository;
 
-        internal TrackService(IRepository<ITrack> trackRepository)
+        internal TrackService(ITrackRepository trackRepository)
         {
             _trackRepository = trackRepository;
         }
@@ -43,7 +43,15 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             _trackRepository.Save(track);
         }
 
-        public ITrack Get(int trackId) => _trackRepository.Get(trackId);
+        public ITrack Get(int trackId)
+        {
+            if (!_trackRepository.Exists(trackId))
+            {
+                throw new NotFoundException(trackId, "track");
+            }
+
+            return _trackRepository.Get(trackId);
+        }
 
         public IEnumerable<ITrack> Find(SearchCriteria searchCriteria)
         {

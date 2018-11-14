@@ -93,7 +93,7 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         public RelayCommand<ITrack> OpenTrackCommand => new RelayCommand<ITrack>(_viewService.ShowView, x => x != null);
 
-        public RelayCommand<ITrack> DeleteTrackCommand => new RelayCommand<ITrack>(Delete, x => x != null);
+        public RelayCommand<ITrack> DeleteTrackCommand => new RelayCommand<ITrack>(DeleteTrack, x => x != null);
 
         public RelayCommand SaveCommand => new RelayCommand(Update);
 
@@ -109,7 +109,7 @@ namespace Podemski.Musicorum.UI.ViewModels
             _dialogService.ShowInfo("Zapisano.");
         }
 
-        private void Delete(ITrack track)
+        private void DeleteTrack(ITrack track)
         {
             if (!_dialogService.ShowQuestion("Chcesz usunąć obiekt?"))
             {
@@ -120,7 +120,7 @@ namespace Podemski.Musicorum.UI.ViewModels
 
             _dialogService.ShowInfo("Usunięto.");
 
-            Initialize(_album.Id);
+            RaisePropertyChanged(() => Tracks);
         }
     }
 }

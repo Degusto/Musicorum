@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using Ninject;
-using Ninject.Modules;
+
 using Podemski.Musicorum.Bootstrap;
 
 namespace Podemski.Musicorum.UI.Bootstrap

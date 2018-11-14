@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Podemski.Musicorum.Interfaces;
+using Podemski.Musicorum.Dao.Contexts;
+using Podemski.Musicorum.Dao.Entities;
 using Podemski.Musicorum.Interfaces.Entities;
+using Podemski.Musicorum.Interfaces.Repositories;
 
 namespace Podemski.Musicorum.Dao.Repositories
 {
-    internal sealed class TrackRepository : IRepository<ITrack>
+    internal sealed class TrackRepository : ITrackRepository
     {
-        private readonly IDataContext _context;
+        private readonly Context _context;
 
-        internal TrackRepository(IDataContext context)
+        internal TrackRepository(Context context)
         {
             _context = context;
         }
 
         public ITrack Get(int id) => _context.Tracks.Single(x => x.Id == id);
-
 
         public bool Exists(int id) => _context.Tracks.Any(x => x.Id == id);
 
@@ -30,20 +31,16 @@ namespace Podemski.Musicorum.Dao.Repositories
                 album.TrackList = album.TrackList.Where(t => t.Id != id);
             }
 
-            _context.Tracks.Remove(Get(id));
+            _context.Tracks.Remove(_context.Tracks.Single(x => x.Id == id));
 
             _context.SaveChanges();
         }
 
         public void Save(ITrack item)
         {
-            if (Exists(item.Id))
+            if (!Exists(item.Id))
             {
-                _context.Tracks[_context.Tracks.IndexOf(Get(item.Id))] = item;
-            }
-            else
-            {
-                _context.Tracks.Add(item);
+                _context.Tracks.Add((Track)item);
             }
 
             _context.SaveChanges();

@@ -54,7 +54,7 @@ namespace Podemski.Musicorum.UI.ViewModels
 
         public RelayCommand SaveCommand => new RelayCommand(Update);
 
-        public RelayCommand DeleteCommand => new RelayCommand(Delete);
+        public RelayCommand DeleteCommand => new RelayCommand(DeleteArtist);
 
         private void Update()
         {
@@ -82,7 +82,7 @@ namespace Podemski.Musicorum.UI.ViewModels
             Initialize(_artist.Id);
         }
 
-        private void Delete()
+        private void DeleteArtist()
         {
             if (!_dialogService.ShowQuestion("Chcesz usunąć obiekt?"))
             {

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+
 using Podemski.Musicorum.UI.ViewModels;
 
 namespace Podemski.Musicorum.UI.Views

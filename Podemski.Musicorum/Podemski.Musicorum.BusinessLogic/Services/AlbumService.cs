@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 using Podemski.Musicorum.BusinessLogic.Exceptions;
 using Podemski.Musicorum.Core.Enums;
-using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
+using Podemski.Musicorum.Interfaces.Repositories;
 using Podemski.Musicorum.Interfaces.SearchCriterias;
 using Podemski.Musicorum.Interfaces.Services;
 
@@ -11,9 +11,9 @@ namespace Podemski.Musicorum.BusinessLogic.Services
 {
     internal sealed class AlbumService : IAlbumService
     {
-        private readonly IRepository<IAlbum> _albumRepository;
+        private readonly IAlbumRepository _albumRepository;
 
-        internal AlbumService(IRepository<IAlbum> albumRepository)
+        internal AlbumService(IAlbumRepository albumRepository)
         {
             _albumRepository = albumRepository;
         }
@@ -43,7 +43,15 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             _albumRepository.Save(album);
         }
 
-        public IAlbum Get(int albumId) => _albumRepository.Get(albumId);
+        public IAlbum Get(int albumId)
+        {
+            if (!_albumRepository.Exists(albumId))
+            {
+                throw new NotFoundException(albumId, "album");
+            }
+
+            return _albumRepository.Get(albumId);
+        }
 
         public IEnumerable<IAlbum> Find(SearchCriteria searchCriteria)
         {

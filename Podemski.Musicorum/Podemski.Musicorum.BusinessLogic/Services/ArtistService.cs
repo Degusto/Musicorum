@@ -3,8 +3,8 @@ using System.Linq;
 
 using Podemski.Musicorum.BusinessLogic.Exceptions;
 using Podemski.Musicorum.Core.Enums;
-using Podemski.Musicorum.Interfaces;
 using Podemski.Musicorum.Interfaces.Entities;
+using Podemski.Musicorum.Interfaces.Repositories;
 using Podemski.Musicorum.Interfaces.SearchCriterias;
 using Podemski.Musicorum.Interfaces.Services;
 
@@ -12,9 +12,9 @@ namespace Podemski.Musicorum.BusinessLogic.Services
 {
     internal sealed class ArtistService : IArtistService
     {
-        private readonly IRepository<IArtist> _artistRepository;
+        private readonly IArtistRepository _artistRepository;
 
-        internal ArtistService(IRepository<IArtist> artistRepository)
+        internal ArtistService(IArtistRepository artistRepository)
         {
             _artistRepository = artistRepository;
         }
@@ -44,7 +44,15 @@ namespace Podemski.Musicorum.BusinessLogic.Services
             _artistRepository.Save(artist);
         }
 
-        public IArtist Get(int artistId) => _artistRepository.Get(artistId);
+        public IArtist Get(int artistId)
+        {
+            if (!_artistRepository.Exists(artistId))
+            {
+                throw new NotFoundException(artistId, "artist");
+            }
+
+            return _artistRepository.Get(artistId);
+        }
 
         public IEnumerable<IArtist> Find(SearchCriteria searchCriteria)
         {
@@ -56,6 +64,11 @@ namespace Podemski.Musicorum.BusinessLogic.Services
                     && artist.Albums.Any(a => a.Genre == searchCriteria.Genre || searchCriteria.Genre == Core.Enums.Genre.All)
                     && (searchCriteria.AlbumVersion == AlbumVersion.None || artist.Albums.Any(a => (a.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Digital) || (!a.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Physical)));
             }
+        }
+
+        public void AddAlbum(IArtist artist, IAlbum album)
+        {
+            _artistRepository.AddAlbum(artist, album);
         }
     }
 }

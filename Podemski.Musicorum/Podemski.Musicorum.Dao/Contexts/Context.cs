@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
-using Podemski.Musicorum.Interfaces;
-using Podemski.Musicorum.Interfaces.Entities;
+
+using Podemski.Musicorum.Dao.Entities;
 
 namespace Podemski.Musicorum.Dao.Contexts
 {
-    internal abstract class BaseContext : IDataContext
+    internal abstract class Context
     {
-        private bool _isLoaded = false;
+        private bool _isLoaded;
 
-        private IList<IArtist> _artists;
-        private IList<IAlbum> _albums;
-        private IList<ITrack> _tracks;
+        private List<Artist> _artists;
+        private List<Album> _albums;
+        private List<Track> _tracks;
 
-        public IList<IArtist> Artists
+        public List<Artist> Artists
         {
             get
             {
@@ -23,7 +23,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             set => _artists = value;
         }
 
-        public IList<IAlbum> Albums
+        public List<Album> Albums
         {
             get
             {
@@ -34,7 +34,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             set => _albums = value;
         }
 
-        public IList<ITrack> Tracks
+        public List<Track> Tracks
         {
             get
             {
