@@ -8,6 +8,7 @@ using System.Data.SQLite.EF6;
 using System.Linq;
 
 using Podemski.Musicorum.Dao.Entities;
+
 using SQLite.CodeFirst;
 
 namespace Podemski.Musicorum.Dao.Contexts
@@ -71,7 +72,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             _context.SaveChanges();
         }
 
-        private void RemoveEntities<T>(DbSet<T> collection, IEnumerable<T> itemsToRemove)
+        private static void RemoveEntities<T>(DbSet<T> collection, IEnumerable<T> itemsToRemove)
             where T : class
         {
             if (itemsToRemove.Any())
@@ -80,7 +81,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             }
         }
 
-        private void LoadDll()
+        private static void LoadDll()
         {
             if (typeof(System.Data.Entity.SqlServer.SqlProviderServices) == null)
             {
@@ -92,7 +93,7 @@ namespace Podemski.Musicorum.Dao.Contexts
         {
             public EntityContext(string databaseLocation) : base(new SQLiteConnection
             {
-                ConnectionString = new SQLiteConnectionStringBuilder() { DataSource = databaseLocation }.ConnectionString
+                ConnectionString = new SQLiteConnectionStringBuilder { DataSource = databaseLocation }.ConnectionString
             }, true)
             { }
 

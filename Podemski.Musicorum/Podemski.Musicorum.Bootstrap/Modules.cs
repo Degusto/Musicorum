@@ -5,7 +5,7 @@ using Podemski.Musicorum.Dao;
 
 namespace Podemski.Musicorum.Bootstrap
 {
-    public class Modules
+    public static class Modules
     {
         public static INinjectModule[] GetModules() => new INinjectModule[] { new DaoModule(), new BusinessLogicModule() };
     }

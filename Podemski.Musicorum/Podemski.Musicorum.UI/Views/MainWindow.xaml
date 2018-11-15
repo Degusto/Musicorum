@@ -8,7 +8,7 @@
         xmlns:converters="clr-namespace:Podemski.Musicorum.UI.Converters"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1100"
+        Title="Musicorum" Height="700" Width="1100"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
