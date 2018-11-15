@@ -31,6 +31,31 @@ namespace Podemski.Musicorum.Dao.Contexts
             Artists = _context.Artists.ToList();
             Albums = _context.Albums.ToList();
             Tracks = _context.Tracks.ToList();
+
+            FixRelations();
+        }
+
+        private void FixRelations()
+        {
+            foreach (var artist in Artists)
+            {
+                artist.Albums = Albums.Where(album => album.ArtistId == artist.Id);
+
+                foreach (var album in artist.Albums.Cast<Album>())
+                {
+                    album.Artist = artist;
+                }
+            }
+
+            foreach (var album in Albums)
+            {
+                album.TrackList = Tracks.Where(track => track.AlbumId == album.Id);
+
+                foreach (var track in album.TrackList.Cast<Track>())
+                {
+                    track.Album = album;
+                }
+            }
         }
 
         internal override void SaveChanges()

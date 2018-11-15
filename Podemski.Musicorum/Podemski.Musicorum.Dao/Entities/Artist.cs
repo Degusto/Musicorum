@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Newtonsoft.Json;
 using Podemski.Musicorum.Interfaces.Entities;
@@ -13,6 +15,8 @@ namespace Podemski.Musicorum.Dao.Entities
         }
 
         [JsonProperty]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; internal set; }
 
         [JsonProperty]
