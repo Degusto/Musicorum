@@ -2,13 +2,12 @@
 using System.Linq;
 
 using Podemski.Musicorum.Dao.Entities;
-using Podemski.Musicorum.Interfaces.Factories;
 
 namespace Podemski.Musicorum.Dao.Contexts
 {
     internal sealed class MemoryContext : Context
     {
-        public override void SaveChanges()
+        internal override void SaveChanges()
         {
             foreach (var artist in Artists)
             {
@@ -35,7 +34,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             }
         }
 
-        protected override void LoadContext()
+        internal override void LoadContext()
         {
             var tracks = new List<Track>
             {

@@ -1,4 +1,8 @@
-﻿using Ninject.Modules;
+﻿using System;
+using System.Configuration;
+using System.Reflection;
+
+using Ninject.Modules;
 
 using Podemski.Musicorum.Dao.Contexts;
 using Podemski.Musicorum.Dao.Factories;
@@ -18,9 +22,32 @@ namespace Podemski.Musicorum.Dao
             Bind<IArtistFactory>().To<ArtistFactory>();
             Bind<IAlbumFactory>().To<AlbumFactory>();
             Bind<ITrackFactory>().To<TrackFactory>();
+            Bind<Context>().ToMethod(_ => GetContext()).InSingletonScope();
+        }
 
-#warning Trzeba wyciągnąć z pliku konfiguracyjnego
-            Bind<Context>().To<FileContext>().InSingletonScope();
+        private static Context GetContext()
+        {
+            var context = CreateContext();
+
+            context.LoadContext();
+
+            return context;
+        }
+
+        private static Context CreateContext()
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(Assembly.GetEntryAssembly().Location);
+
+            string contextSource = config.AppSettings.Settings["Context"].Value;
+            string contextData = config.AppSettings.Settings["ContextData"].Value;
+
+            switch (contextSource)
+            {
+                case "DAOMock": return new MemoryContext();
+                case "DAOFile": return new FileContext(contextData);
+                case "DAOSQL": return new DatabaseContext(contextData);
+                default: throw new ArgumentOutOfRangeException($"Unknown database: {contextSource}");
+            }
         }
     }
 }

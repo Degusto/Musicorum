@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 
@@ -10,11 +11,11 @@ namespace Podemski.Musicorum.Dao.Contexts
 {
     internal sealed class FileContext : Context
     {
-        private readonly string _fileName = @"D:\temp\test.xml";
+        private readonly string _fileName;
 
-        //internal FileContext(string fileName) => _fileName = fileName;
+        internal FileContext(string fileName) => _fileName = fileName;
 
-        public override void SaveChanges()
+        internal override void SaveChanges()
         {
             foreach (var artist in Artists)
             {
@@ -48,7 +49,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             File.WriteAllText(_fileName, JsonConvert.SerializeObject(this, Formatting.Indented));
         }
 
-        protected override void LoadContext()
+        internal override void LoadContext()
         {
             Deserialize();
 
@@ -57,6 +58,11 @@ namespace Podemski.Musicorum.Dao.Contexts
 
         private void Deserialize()
         {
+            if(!File.Exists(_fileName))
+            {
+                return;
+            }
+
             var context = new { Artists = new List<Artist>(), Albums = new List<Album>(), Tracks = new List<Track>() };
 
             context = JsonConvert.DeserializeAnonymousType(File.ReadAllText(_fileName), context);

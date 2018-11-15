@@ -1,62 +1,25 @@
 ﻿using System.Collections.Generic;
-
 using Podemski.Musicorum.Dao.Entities;
 
 namespace Podemski.Musicorum.Dao.Contexts
 {
     internal abstract class Context
     {
-        private bool _isLoaded;
-
-        private List<Artist> _artists;
-        private List<Album> _albums;
-        private List<Track> _tracks;
-
-        public List<Artist> Artists
+        protected Context()
         {
-            get
-            {
-                Load();
-
-                return _artists;
-            }
-            set => _artists = value;
+            Artists = new List<Artist>();
+            Albums = new List<Album>();
+            Tracks = new List<Track>();
         }
 
-        public List<Album> Albums
-        {
-            get
-            {
-                Load();
+        public List<Artist> Artists { get; set; }
 
-                return _albums;
-            }
-            set => _albums = value;
-        }
+        public List<Album> Albums { get; set; }
 
-        public List<Track> Tracks
-        {
-            get
-            {
-                Load();
+        public List<Track> Tracks { get; set; }
 
-                return _tracks;
-            }
-            set => _tracks = value;
-        }
+        internal abstract void SaveChanges();
 
-        public abstract void SaveChanges();
-
-        protected abstract void LoadContext();
-
-        private void Load()
-        {
-            if (!_isLoaded)
-            {
-                _isLoaded = true;
-
-                LoadContext();
-            }
-        }
+        internal abstract void LoadContext();
     }
 }
