@@ -12,9 +12,9 @@ namespace Podemski.Musicorum.BusinessLogic.Services
 {
     internal sealed class ArtistService : IArtistService
     {
-        private readonly IArtistRepository _artistRepository;
+        private readonly IRepository<IArtist> _artistRepository;
 
-        internal ArtistService(IArtistRepository artistRepository)
+        internal ArtistService(IRepository<IArtist> artistRepository)
         {
             _artistRepository = artistRepository;
         }
@@ -54,11 +54,6 @@ namespace Podemski.Musicorum.BusinessLogic.Services
                     && (searchCriteria.Genre == Genre.All || artist.Albums.Any(a => a.Genre == searchCriteria.Genre))
                     && (searchCriteria.AlbumVersion == AlbumVersion.None || artist.Albums.Any(a => (a.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Digital) || (!a.IsDigital && searchCriteria.AlbumVersion == AlbumVersion.Physical)));
             }
-        }
-
-        public void AddAlbum(IArtist artist, IAlbum album)
-        {
-            _artistRepository.AddAlbum(artist, album);
         }
     }
 }

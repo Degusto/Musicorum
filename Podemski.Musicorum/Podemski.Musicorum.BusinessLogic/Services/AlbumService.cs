@@ -11,9 +11,9 @@ namespace Podemski.Musicorum.BusinessLogic.Services
 {
     internal sealed class AlbumService : IAlbumService
     {
-        private readonly IAlbumRepository _albumRepository;
+        private readonly IRepository<IAlbum> _albumRepository;
 
-        internal AlbumService(IAlbumRepository albumRepository)
+        internal AlbumService(IRepository<IAlbum> albumRepository)
         {
             _albumRepository = albumRepository;
         }

@@ -1,21 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 
 using Newtonsoft.Json;
 
 using Podemski.Musicorum.Dao.Entities;
 
-namespace Podemski.Musicorum.Dao.Contexts
+using FileHelpers = System.IO.File;
+
+namespace Podemski.Musicorum.Dao.File
 {
-    internal sealed class FileContext : Context
+    public sealed class FileContext : Context
     {
-        private readonly string _fileName;
+        private string _fileName;
+        private readonly JsonSerializerSettings _jsonSettings = new JsonSerializerSettings { Formatting = Formatting.Indented, ContractResolver = new CustomContractResolver() };
 
-        internal FileContext(string fileName) => _fileName = fileName;
+        public override void Initialize(string data) => _fileName = data;
 
-        internal override void SaveChanges()
+        public override void SaveChanges()
         {
             foreach (var artist in Artists)
             {
@@ -46,10 +47,10 @@ namespace Podemski.Musicorum.Dao.Contexts
 
         private void Serialize()
         {
-            File.WriteAllText(_fileName, JsonConvert.SerializeObject(this, Formatting.Indented));
+            FileHelpers.WriteAllText(_fileName, JsonConvert.SerializeObject(this, _jsonSettings));
         }
 
-        internal override void LoadContext()
+        public override void LoadContext()
         {
             Deserialize();
 
@@ -58,14 +59,14 @@ namespace Podemski.Musicorum.Dao.Contexts
 
         private void Deserialize()
         {
-            if(!File.Exists(_fileName))
+            if (!FileHelpers.Exists(_fileName))
             {
                 return;
             }
 
             var context = new { Artists = new List<Artist>(), Albums = new List<Album>(), Tracks = new List<Track>() };
 
-            context = JsonConvert.DeserializeAnonymousType(File.ReadAllText(_fileName), context);
+            context = JsonConvert.DeserializeAnonymousType(FileHelpers.ReadAllText(_fileName), context, _jsonSettings);
 
             Artists = context.Artists.ToList();
             Albums = context.Albums.ToList();
@@ -76,7 +77,7 @@ namespace Podemski.Musicorum.Dao.Contexts
         {
             foreach (var artist in Artists)
             {
-                artist.Albums = Albums.Where(album => album.ArtistId == artist.Id);
+                artist.Albums = Albums.Where(album => album.ArtistId == artist.Id).ToList();
 
                 foreach (var album in artist.Albums.Cast<Album>())
                 {
@@ -86,9 +87,9 @@ namespace Podemski.Musicorum.Dao.Contexts
 
             foreach (var album in Albums)
             {
-                album.TrackList = Tracks.Where(track => track.AlbumId == album.Id);
+                album.Tracks = Tracks.Where(track => track.AlbumId == album.Id).ToList();
 
-                foreach (var track in album.TrackList.Cast<Track>())
+                foreach (var track in album.Tracks.Cast<Track>())
                 {
                     track.Album = album;
                 }

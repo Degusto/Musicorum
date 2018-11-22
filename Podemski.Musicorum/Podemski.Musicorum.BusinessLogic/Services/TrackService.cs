@@ -11,9 +11,9 @@ namespace Podemski.Musicorum.BusinessLogic.Services
 {
     internal sealed class TrackService : ITrackService
     {
-        private readonly ITrackRepository _trackRepository;
+        private readonly IRepository<ITrack> _trackRepository;
 
-        internal TrackService(ITrackRepository trackRepository)
+        internal TrackService(IRepository<ITrack> trackRepository)
         {
             _trackRepository = trackRepository;
         }

@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podemski.Musicorum.Dao", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podemski.Musicorum.Bootstrap", "Podemski.Musicorum.Bootstrap\Podemski.Musicorum.Bootstrap.csproj", "{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podemski.Musicorum.Dao.Mock", "Podemski.Musicorum.Dao.Mock\Podemski.Musicorum.Dao.Mock.csproj", "{BC0DFB07-0816-4472-A4E0-9BAF1CBD1C5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podemski.Musicorum.Dao.File", "Podemski.Musicorum.Dao.File\Podemski.Musicorum.Dao.File.csproj", "{0416808E-A6D4-41FD-AA0B-B753B014F0ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podemski.Musicorum.Dao.Database", "Podemski.Musicorum.Dao.Database\Podemski.Musicorum.Dao.Database.csproj", "{482A4E6C-757D-4B48-9039-503648CF2F4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +51,18 @@ Global
 		{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F6C2ABB-F398-4E31-8C92-33E683E01AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC0DFB07-0816-4472-A4E0-9BAF1CBD1C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC0DFB07-0816-4472-A4E0-9BAF1CBD1C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC0DFB07-0816-4472-A4E0-9BAF1CBD1C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC0DFB07-0816-4472-A4E0-9BAF1CBD1C5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0416808E-A6D4-41FD-AA0B-B753B014F0ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0416808E-A6D4-41FD-AA0B-B753B014F0ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0416808E-A6D4-41FD-AA0B-B753B014F0ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0416808E-A6D4-41FD-AA0B-B753B014F0ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{482A4E6C-757D-4B48-9039-503648CF2F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{482A4E6C-757D-4B48-9039-503648CF2F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{482A4E6C-757D-4B48-9039-503648CF2F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{482A4E6C-757D-4B48-9039-503648CF2F4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

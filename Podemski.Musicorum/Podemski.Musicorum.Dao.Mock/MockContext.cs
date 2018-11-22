@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Podemski.Musicorum.Core.Enums;
 using Podemski.Musicorum.Dao.Entities;
 
 namespace Podemski.Musicorum.Dao.Contexts
 {
-    internal sealed class MemoryContext : Context
+    public sealed class MockContext : Context
     {
-        internal override void SaveChanges()
+        public override void SaveChanges()
         {
             foreach (var artist in Artists)
             {
@@ -25,16 +26,16 @@ namespace Podemski.Musicorum.Dao.Contexts
                 }
             }
 
-            foreach (var tracks in Tracks)
+            foreach (var track in Tracks)
             {
-                if (tracks.Id == 0)
+                if (track.Id == 0)
                 {
-                    tracks.Id = Tracks.Max(x => x.Id) + 1;
+                    track.Id = Tracks.Max(x => x.Id) + 1;
                 }
             }
         }
 
-        internal override void LoadContext()
+        public override void LoadContext()
         {
             var tracks = new List<Track>
             {
@@ -95,26 +96,26 @@ namespace Podemski.Musicorum.Dao.Contexts
                     Id = 1,
                     Title = "Album 1",
                     IsDigital = true,
-                    Genre = Core.Enums.Genre.Blues
+                    Genre = Genre.Blues
                 },
                 new Album
                 {
                     Id = 2,
                     Title = "Album 2",
                     IsDigital = true,
-                    Genre = Core.Enums.Genre.Pop
+                    Genre = Genre.Pop
                 },
                 new Album
                 {
                     Id = 3,
                     Title = "Album 3",
-                    Genre = Core.Enums.Genre.Trap
+                    Genre = Genre.Trap
                 },
                 new Album
                 {
                     Id = 4,
                     Title = "Album 4",
-                    Genre = Core.Enums.Genre.Rap
+                    Genre = Genre.Rap
                 },
             };
 
@@ -150,7 +151,7 @@ namespace Podemski.Musicorum.Dao.Contexts
 
             foreach (var album in albums)
             {
-                album.TrackList = tracks.Where(x => x.Album == album);
+                album.Tracks = tracks.Where(x => x.Album == album).ToList();
             }
 
             Artists = artists;

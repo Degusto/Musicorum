@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 
 using Ninject.Modules;
 
-using Podemski.Musicorum.Dao.Contexts;
 using Podemski.Musicorum.Dao.Factories;
 using Podemski.Musicorum.Dao.Repositories;
+using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.Factories;
 using Podemski.Musicorum.Interfaces.Repositories;
 
@@ -16,9 +18,9 @@ namespace Podemski.Musicorum.Dao
     {
         public override void Load()
         {
-            Bind<IAlbumRepository>().To<AlbumRepository>();
-            Bind<IArtistRepository>().To<ArtistRepository>();
-            Bind<ITrackRepository>().To<TrackRepository>();
+            Bind<IRepository<IAlbum>>().To<AlbumRepository>();
+            Bind<IRepository<IArtist>>().To<ArtistRepository>();
+            Bind<IRepository<ITrack>>().To<TrackRepository>();
             Bind<IArtistFactory>().To<ArtistFactory>();
             Bind<IAlbumFactory>().To<AlbumFactory>();
             Bind<ITrackFactory>().To<TrackFactory>();
@@ -36,18 +38,27 @@ namespace Podemski.Musicorum.Dao
 
         private static Context CreateContext()
         {
-            var config = ConfigurationManager.OpenExeConfiguration(Assembly.GetEntryAssembly().Location);
+            string exeLocation = Assembly.GetEntryAssembly().Location;
+
+            var config = ConfigurationManager.OpenExeConfiguration(exeLocation);
 
             string contextSource = config.AppSettings.Settings["Context"].Value;
             string contextData = config.AppSettings.Settings["ContextData"].Value;
 
-            switch (contextSource)
+            if(!Path.IsPathRooted(contextSource))
             {
-                case "DAOMock": return new MemoryContext();
-                case "DAOFile": return new FileContext(contextData);
-                case "DAOSQL": return new DatabaseContext(contextData);
-                default: throw new ArgumentOutOfRangeException($"Unknown database: {contextSource}");
+                contextSource = Path.Combine(Path.GetDirectoryName(exeLocation), contextSource);
             }
+
+            var assembly = Assembly.LoadFile(contextSource);
+
+            var contextType = assembly.GetTypes().Single(t => t.IsSubclassOf(typeof(Context)));
+
+            var context = (Context)Activator.CreateInstance(contextType);
+
+            context.Initialize(contextData);
+
+            return context;
         }
     }
 }

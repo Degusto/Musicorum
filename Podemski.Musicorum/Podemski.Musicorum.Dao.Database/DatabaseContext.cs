@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Common;
@@ -11,19 +11,19 @@ using Podemski.Musicorum.Dao.Entities;
 
 using SQLite.CodeFirst;
 
-namespace Podemski.Musicorum.Dao.Contexts
+namespace Podemski.Musicorum.Dao.Database
 {
-    internal sealed class DatabaseContext : Context
+    public sealed class DatabaseContext : Context
     {
         private EntityContext _context;
         private readonly string _connectionString;
 
-        internal DatabaseContext(string connectionString)
+        public DatabaseContext(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        internal override void LoadContext()
+        public override void LoadContext()
         {
             LoadDll();
 
@@ -50,16 +50,16 @@ namespace Podemski.Musicorum.Dao.Contexts
 
             foreach (var album in Albums)
             {
-                album.TrackList = Tracks.Where(track => track.AlbumId == album.Id);
+                album.Tracks = Tracks.Where(track => track.AlbumId == album.Id);
 
-                foreach (var track in album.TrackList.Cast<Track>())
+                foreach (var track in album.Tracks.Cast<Track>())
                 {
                     track.Album = album;
                 }
             }
         }
 
-        internal override void SaveChanges()
+        public override void SaveChanges()
         {
             _context.Artists.AddOrUpdate(Artists.ToArray());
             _context.Albums.AddOrUpdate(Albums.ToArray());
@@ -107,7 +107,7 @@ namespace Podemski.Musicorum.Dao.Contexts
             {
                 var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<EntityContext>(modelBuilder);
 
-                Database.SetInitializer(sqliteConnectionInitializer);
+                System.Data.Entity.Database.SetInitializer(sqliteConnectionInitializer);
             }
         }
 

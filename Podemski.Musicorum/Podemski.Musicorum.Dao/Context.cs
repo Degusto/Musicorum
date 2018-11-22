@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+
 using Podemski.Musicorum.Dao.Entities;
 
-namespace Podemski.Musicorum.Dao.Contexts
+namespace Podemski.Musicorum.Dao
 {
-    internal abstract class Context
+    public abstract class Context
     {
         protected Context()
         {
@@ -18,8 +19,10 @@ namespace Podemski.Musicorum.Dao.Contexts
 
         public List<Track> Tracks { get; set; }
 
-        internal abstract void SaveChanges();
+        public abstract void SaveChanges();
 
-        internal abstract void LoadContext();
+        public abstract void LoadContext();
+
+        public virtual void Initialize(string data) { }
     }
 }

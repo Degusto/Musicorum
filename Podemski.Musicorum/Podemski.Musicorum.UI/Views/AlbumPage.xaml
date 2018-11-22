@@ -55,7 +55,7 @@
                   SelectedValue="{Binding Path=Genre, Mode=TwoWay}"/>
 
         <TextBlock Grid.Row="3" Grid.Column="0" Text="W. cyfrowa: " FontSize="30" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-        <CheckBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding IsDigital, Mode=TwoWay, FallbackValue=Opis}" Margin="3"/>
+        <CheckBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding IsDigital, Mode=TwoWay, FallbackValue=False}" Margin="3"/>
 
         <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Text="Opis" FontSize="30" HorizontalAlignment="Center" Margin="3"/>
         <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding Description, Mode=TwoWay, FallbackValue=Opis}" Margin="3"/>

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+
 using Podemski.Musicorum.Core.Enums;
 using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.Factories;

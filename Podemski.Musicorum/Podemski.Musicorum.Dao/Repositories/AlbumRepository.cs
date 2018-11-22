@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Podemski.Musicorum.Dao.Contexts;
 using Podemski.Musicorum.Dao.Entities;
 using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.Repositories;
 
 namespace Podemski.Musicorum.Dao.Repositories
 {
-    internal sealed class AlbumRepository : IAlbumRepository
+    internal sealed class AlbumRepository : IRepository<IAlbum>
     {
         private readonly Context _context;
-        private readonly ITrackRepository _trackRepository;
+        private readonly IRepository<ITrack> _trackRepository;
 
-        internal AlbumRepository(Context context, ITrackRepository trackRepository)
+        internal AlbumRepository(Context context, IRepository<ITrack> trackRepository)
         {
             _context = context;
             _trackRepository = trackRepository;
@@ -36,7 +35,7 @@ namespace Podemski.Musicorum.Dao.Repositories
                 artist.Albums = artist.Albums.Where(a => a.Id != id);
             }
 
-            foreach (var track in album.TrackList.ToList())
+            foreach (var track in album.Tracks.ToList())
             {
                 _trackRepository.Delete(track.Id);
             }
@@ -54,17 +53,6 @@ namespace Podemski.Musicorum.Dao.Repositories
 
                 ((Artist)item.Artist).Albums = item.Artist.Albums.Concat(new List<Album> { (Album)item });
             }
-
-            _context.SaveChanges();
-        }
-
-        public void AddTrack(IAlbum album, ITrack track)
-        {
-            var artistToAdd = (Album)Get(album.Id);
-
-            _trackRepository.Save(track);
-
-            artistToAdd.TrackList = album.TrackList.Concat(new List<ITrack> { track });
 
             _context.SaveChanges();
         }

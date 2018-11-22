@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Podemski.Musicorum.Dao.Contexts;
 using Podemski.Musicorum.Dao.Entities;
 using Podemski.Musicorum.Interfaces.Entities;
 using Podemski.Musicorum.Interfaces.Repositories;
 
 namespace Podemski.Musicorum.Dao.Repositories
 {
-    internal sealed class ArtistRepository : IArtistRepository
+    internal sealed class ArtistRepository : IRepository<IArtist>
     {
         private readonly Context _context;
-        private readonly IAlbumRepository _albumRepository;
+        private readonly IRepository<IAlbum> _albumRepository;
 
-        internal ArtistRepository(Context context, IAlbumRepository albumRepository)
+        internal ArtistRepository(Context context, IRepository<IAlbum> albumRepository)
         {
             _context = context;
             _albumRepository = albumRepository;
@@ -46,17 +45,6 @@ namespace Podemski.Musicorum.Dao.Repositories
             {
                 _context.Artists.Add((Artist)item);
             }
-
-            _context.SaveChanges();
-        }
-
-        public void AddAlbum(IArtist artist, IAlbum album)
-        {
-            var artistToAdd = (Artist)Get(artist.Id);
-
-            _albumRepository.Save(album);
-
-            artistToAdd.Albums = artist.Albums.Concat(new List<IAlbum> { album });
 
             _context.SaveChanges();
         }
